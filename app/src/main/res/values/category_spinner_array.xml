@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="categories_array">
+        <item>Any</item>
+        <item>American</item>
+        <item>B &amp; B</item>
+        <item>Chinese</item>
+        <item>Eastern European</item>
+        <item>Fast Food</item>
+        <item>Filipino</item>
+        <item>French</item>
+        <item>Greek</item>
+        <item>Halal</item>
+        <item>Indian</item>
+        <item>Italian</item>
+        <item>Japanese</item>
+        <item>Kosher</item>
+        <item>Korean</item>
+        <item>Mexican</item>
+        <item>Middle Eastern</item>
+        <item>Mediterranean</item>
+        <item>Pizza</item>
+        <item>Seafood</item>
+        <item>Sushi Bars</item>
+        <item>Thai</item>
+        <item>Vegan</item>
+        <item>Vegetarian</item>
+        <item>Vietnamese</item>
+    </string-array>
+</resources>

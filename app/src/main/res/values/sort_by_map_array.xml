@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="sort_by_map_array">
+        <item>Ratings,rating</item>
+        <item>Most Reviews,review_count</item>
+    </string-array>
+</resources>
+

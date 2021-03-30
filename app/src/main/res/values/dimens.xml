@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="splash_app_name_size" >32sp</dimen>
+
+    <dimen name="spin_roulette_button_radius">200dp</dimen>
+
+    <dimen name="spinner_vertical_bias">.2</dimen>
+
+    <dimen name="price_radio_group_height">30dp</dimen>
+    <dimen name="price_radio_group_width">250dp</dimen>
+    <dimen name="price_radio_button_width">62.5dp</dimen>
+
+    <dimen name="background_corner_radius">5dp</dimen>
+    <dimen name="background_stroke_width">3dp</dimen>
+
+    <dimen name="xsmall_text_size">8sp</dimen>
+    <dimen name="small_text_size">16sp</dimen>
+    <dimen name="medium_text_size">24sp</dimen>
+    <dimen name="large_text_size">32sp</dimen>
+    <dimen name="xlarge_text_size">48sp</dimen>
+
+    <dimen name="small_margin_size">8dp</dimen>
+    <dimen name="medium_margin_size">16dp</dimen>
+
+</resources>

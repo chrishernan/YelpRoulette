@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="categories_map_array">
+        <item>Any,</item>
+        <item>American,newamerican</item>
+        <item>B &amp; B,breakfast_brunch</item>
+        <item>Chinese,chinese</item>
+        <item>Eastern European,eastern_european</item>
+        <item>Fast Food,hotdogs</item>
+        <item>Filipino,filipino</item>
+        <item>French,french</item>
+        <item>Greek,greek</item>
+        <item>Halal,halal</item>
+        <item>Indian,indpak</item>
+        <item>Italian,italian</item>
+        <item>Japanese,japanese</item>
+        <item>Kosher,kosher</item>
+        <item>Korean,korean</item>
+        <item>Mexican,mexican</item>
+        <item>Middle Eastern,mideastern</item>
+        <item>Mediterranean,mediterranean</item>
+        <item>Pizza,pizza</item>
+        <item>Seafood,seafood</item>
+        <item>Sushi Bars,sushi</item>
+        <item>Thai,thai</item>
+        <item>Vegan,vegan</item>
+        <item>Vegetarian,vegetarian</item>
+        <item>Vietnamese,vietnamese</item>
+    </string-array>
+</resources>
+
