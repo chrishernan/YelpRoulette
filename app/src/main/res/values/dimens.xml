@@ -22,4 +22,9 @@
     <dimen name="small_margin_size">8dp</dimen>
     <dimen name="medium_margin_size">16dp</dimen>
 
+    <dimen name="google_map_height">300dp</dimen>
+
+    <integer name="total_number_of_stars">5</integer>
+    <integer name="text_border">10</integer>
+
 </resources>

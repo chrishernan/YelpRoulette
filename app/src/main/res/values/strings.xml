@@ -17,5 +17,16 @@
 
     <!-- Progress Bar Layout values -->
     <string name="progress_bar_text">Finding Random Restaurant</string>
+    <string name="business_title_string">SAMPLE SINGLE BUSINESS</string>
+
+    <!-- single business activity string values -->
+    <string name="business_food_image_view">BUSINESS FOOD PHOTO</string>
+    <string name="num_of_ratings_place_holder">100</string>
+    <string name="call_button">Call</string>
+    <string name="website_button">Website</string>
+    <string name="yelp_button">Yelp</string>
+
+
+
 
 </resources>

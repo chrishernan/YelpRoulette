@@ -124,4 +124,8 @@ class YelpViewModel @Inject constructor(
         }
     }
 
+    fun clearRandomYelpRestaurant() {
+        randomYelpRestaurant = MutableLiveData<Result<BusinessesItem?>>()
+    }
+
 }

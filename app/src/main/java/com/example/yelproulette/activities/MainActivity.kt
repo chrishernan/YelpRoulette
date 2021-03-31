@@ -1,5 +1,6 @@
 package com.example.yelproulette.activities
 
+import android.content.Intent
 import android.opengl.Visibility
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -12,12 +13,17 @@ import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.iterator
+import androidx.core.view.iterator
+import androidx.fragment.app.commit
+import androidx.fragment.app.replace
 import androidx.lifecycle.Observer
 import com.example.yelproulette.IO.YelpApiHelper
 import com.example.yelproulette.R
 import com.example.yelproulette.ViewModel.YelpViewModel
 import com.example.yelproulette.fragments.HorizontalProgressBarFrament
 import com.example.yelproulette.fragments.ProgressBarFragment
+import com.example.yelproulette.fragments.SingleBusinessFragment
+import com.example.yelproulette.fragments.StartFragment
 import com.example.yelproulette.utils.convertMilesToMeters
 import com.example.yelproulette.utils.Result
 import dagger.hilt.android.AndroidEntryPoint
@@ -36,30 +42,19 @@ class MainActivity : AppCompatActivity() {
         //todo change this so it only populates once or when prompted. Not everytime activity is created
         viewModel.populateDb()
         setContentView(R.layout.activity_main)
-        val distanceSpinner : Spinner = findViewById(R.id.distance_spinner)
-        val categorySpinner : Spinner = findViewById(R.id.category_spinner)
-        val sortBySpinner : Spinner = findViewById(R.id.sort_by_spinner)
-        val openNowSpinner : Spinner = findViewById(R.id.open_now_spinner)
-
-        //Creating array adapters for all 4 spinners on main screen
-        createAdapter(distanceSpinner,R.array.distances_array)
-        createAdapter(categorySpinner,R.array.categories_array)
-        createAdapter(sortBySpinner,R.array.sort_by_spinner_array)
-        createAdapter(openNowSpinner,R.array.open_now_spinner_array)
-
+        supportFragmentManager.commit {
+            replace<StartFragment>(R.id.main_activity_fragment_container_view)
+            setReorderingAllowed(true)
+        }
+        //todo figure out how to make observers stop observing after it's been done once.probaly resetting w/ onDestroy
         setupObservers()
-
-    }
-
-    override fun onBackPressed() {
-        super.onBackPressed()
     }
 
     /**
      * Observes viewmodel Yelp Restaurant Request and reacts accordingly
      */
     private fun setupObservers() {
-        val mProgressBar : ProgressBar =  findViewById(R.id.main_progress_bar)
+        val progressBarFragment = ProgressBarFragment.newInstance()
         viewModel.randomYelpRestaurant.observe(this, Observer {
             when (it.status) {
                 Result.Status.SUCCESS -> {
@@ -67,6 +62,12 @@ class MainActivity : AppCompatActivity() {
                     Timber.e("Random Business Successfully retrieved => " +
                             "Name => ${it.data!!.name} Distance => ${it.data!!.distance} " +
                             "Rating =>${it.data!!.rating}")
+                    progressBarFragment.dismissAllowingStateLoss()
+                    supportFragmentManager.commit {
+                        replace<SingleBusinessFragment>(R.id.main_activity_fragment_container_view)
+                        setReorderingAllowed(true)
+                    }
+                    stopObservingRandomYelpBusiness()
                 }
                 Result.Status.ZERO -> {
                     //todo display dialog saying we couldn't find any restaurants matching the current stuff
@@ -74,7 +75,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 Result.Status.LOADING -> {
                     //display a Progress Bar.
-                    ProgressBarFragment.newInstance().show(
+                    progressBarFragment.show(
                         supportFragmentManager,
                         ProgressBarFragment.TAG
                     )
@@ -87,6 +88,10 @@ class MainActivity : AppCompatActivity() {
 
             }
         })
+    }
+
+    private fun stopObservingRandomYelpBusiness() {
+        viewModel.randomYelpRestaurant.removeObservers(this)
     }
 
     /**
@@ -128,7 +133,6 @@ class MainActivity : AppCompatActivity() {
                                 R.drawable.price_selected_background)
                         uncheckPreviousSelection(radioGroup,view.id)
                     }
-
             }
         }
     }
@@ -160,7 +164,6 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-
     /**
      * Unchecks/unselects previous price selection
      */
@@ -182,19 +185,14 @@ class MainActivity : AppCompatActivity() {
                 R.drawable.price_selected_background)
     }
 
-    /**
-     * Creates adapter for spinners
-     */
-
-    private fun createAdapter(spinner: Spinner, array: Int) {
-        ArrayAdapter.createFromResource(
-                this,
-                array,
-                android.R.layout.simple_spinner_item
-        ).also { adapter ->
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_item)
-            spinner.adapter = adapter
+    fun restoreStartFragment() {
+        supportFragmentManager.commit {
+            replace<StartFragment>(R.id.main_activity_fragment_container_view)
+            setReorderingAllowed(true)
         }
+        //clears Previous random yelp restaurant and sets up observers for new action
+        viewModel.clearRandomYelpRestaurant()
+        setupObservers()
     }
 
 }

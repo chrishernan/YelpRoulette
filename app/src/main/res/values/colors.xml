@@ -9,4 +9,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="grey">#FFAAAAAA</color>
+
+    <color name="star_rating_color">#FFCC01</color>
+    <color name="star_rating_secondary_color">#BBAA01</color>
+
 </resources>

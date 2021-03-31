@@ -17,4 +17,7 @@ object Constants {
 
     //Constant Numbers used for conversion
     const val METER_TO_MILE = 1609
+
+    //GoogleMaps/Places API
+    const val STREET_ZOOM_LEVEL =16.0F
 }
