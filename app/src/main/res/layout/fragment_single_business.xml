@@ -39,6 +39,16 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent=".4"/>
 
+    <TextView
+        android:id="@+id/single_business_price_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/one_dollar_sign"
+        android:textSize="@dimen/medium_text_size"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/business_rating_bar"
+        app:layout_constraintBottom_toTopOf="@+id/business_directions_button"
+        app:layout_constraintTop_toBottomOf="@+id/business_top_horizontal_guide_line" />
 
     <RatingBar
         android:id="@+id/business_rating_bar"
@@ -50,9 +60,9 @@
         android:progressTint="@color/star_rating_color"
         android:secondaryProgressTint="@color/star_rating_secondary_color"
         android:numStars="@integer/total_number_of_stars"
-        app:layout_constraintBottom_toTopOf="@+id/business_website_button"
+        app:layout_constraintBottom_toTopOf="@+id/business_directions_button"
         app:layout_constraintEnd_toStartOf="@id/number_of_ratings_text_view"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/single_business_price_text_view"
         app:layout_constraintTop_toBottomOf="@+id/business_top_horizontal_guide_line" />
 
 
@@ -63,7 +73,7 @@
         android:text="@string/num_of_ratings_place_holder"
         android:textSize="@dimen/medium_text_size"
         app:layout_constraintTop_toTopOf="@id/business_top_horizontal_guide_line"
-        app:layout_constraintBottom_toTopOf="@+id/business_website_button"
+        app:layout_constraintBottom_toTopOf="@+id/business_directions_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/business_rating_bar" />
 
@@ -74,7 +84,7 @@
         android:src="@drawable/ic_baseline_phone_24"
         app:layout_constraintTop_toBottomOf="@id/business_rating_bar"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/business_website_button"
+        app:layout_constraintEnd_toStartOf="@id/business_directions_button"
         app:layout_constraintBottom_toTopOf="@id/business_call_text_view"
         android:contentDescription="@string/call_button" />
 
@@ -90,24 +100,24 @@
         app:layout_constraintBottom_toTopOf="@id/business_bottom_horizontal_guide_line"/>
 
     <ImageButton
-        android:id="@+id/business_website_button"
+        android:id="@+id/business_directions_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_baseline_web_24"
+        android:src="@drawable/ic_baseline_map_24"
         app:layout_constraintTop_toBottomOf="@id/business_rating_bar"
         app:layout_constraintStart_toEndOf="@id/business_call_button"
-        app:layout_constraintBottom_toTopOf="@id/business_website_text_view"
+        app:layout_constraintBottom_toTopOf="@id/business_directions_text_view"
         app:layout_constraintEnd_toStartOf="@id/business_yelp_button"
-        android:contentDescription="@string/website_button" />
+        android:contentDescription="@string/directions_button" />
 
     <TextView
-        android:id="@+id/business_website_text_view"
+        android:id="@+id/business_directions_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/website_button"
-        app:layout_constraintTop_toBottomOf="@id/business_website_button"
-        app:layout_constraintStart_toStartOf="@id/business_website_button"
-        app:layout_constraintEnd_toEndOf="@id/business_website_button"
+        android:text="@string/directions_button"
+        app:layout_constraintTop_toBottomOf="@id/business_directions_button"
+        app:layout_constraintStart_toStartOf="@id/business_directions_button"
+        app:layout_constraintEnd_toEndOf="@id/business_directions_button"
         app:layout_constraintBottom_toTopOf="@id/business_bottom_horizontal_guide_line"/>
 
     <ImageButton
@@ -115,7 +125,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_baseline_double_arrow_24"
-        app:layout_constraintStart_toEndOf="@id/business_website_button"
+        app:layout_constraintStart_toEndOf="@id/business_directions_button"
         app:layout_constraintBottom_toTopOf="@id/business_yelp_text_view"
         app:layout_constraintTop_toBottomOf="@id/business_rating_bar"
         app:layout_constraintEnd_toEndOf="parent"

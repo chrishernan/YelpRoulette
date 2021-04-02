@@ -9,6 +9,7 @@ import com.example.yelproulette.room.ApiMapDatabase
 import com.example.yelproulette.room.CategoryMapDao
 import com.example.yelproulette.room.SortByMapDao
 import com.example.yelproulette.utils.Constants
+import com.example.yelproulette.utils.convertMilesToMeters
 import kotlinx.coroutines.*
 import timber.log.Timber
 import javax.inject.Inject
@@ -41,8 +42,9 @@ class Repository @Inject constructor(
                                       openNow : String,
                                       sortBy : String,
                                       categories : String) : BusinessesItem? {
+        //If categories is set to Any call different function to handle that
         if(categories == Constants.ALL_CATEGORY_SPINNER_KEYWORD) {
-            fetchNoCategoryBusiness(
+            return fetchNoCategoryBusiness(
                 address,
                 radius,
                 price,
@@ -50,18 +52,22 @@ class Repository @Inject constructor(
                 sortBy,
                 categories)
         }
-        val businesses = yelpApiHelper.getBusinesses(
-            address,
-            radius,
-            price.length.toString(),
-            openNowConversion(openNow),
-            sortByMapDao.getApiSortByKey(sortBy),
-            categoryMapDao.getApiCategoryName(categories))
+        //else, if there is a category, handle in this function
+        else {
+            val businesses = yelpApiHelper.getBusinesses(
+                    address,
+                    convertMilesToMeters(radius.toInt()).toString(),
+                    price.length.toString(),
+                    openNowConversion(openNow),
+                    sortByMapDao.getApiSortByKey(sortBy),
+                    categoryMapDao.getApiCategoryName(categories))
 
-        //Computes random business from return businesses
-        val randomBusinessJob  = cpuScope.async { randomBusiness(businesses)}
-        val randomBus = randomBusinessJob.await()
-        return randomBus
+            //Computes random business from return businesses
+            val randomBusinessJob  = cpuScope.async { randomBusiness(businesses)}
+            val randomBus = randomBusinessJob.await()
+            return randomBus
+        }
+
     }
 
     /**
@@ -75,7 +81,7 @@ class Repository @Inject constructor(
                                         categories : String) : BusinessesItem? {
         val businesses = yelpApiHelper.getBusinessesNoCategory(
             address,
-            radius,
+            convertMilesToMeters(radius.toInt()).toString(),
             price.length.toString(),
             openNowConversion(openNow),
             sortByMapDao.getApiSortByKey(sortBy))
@@ -97,28 +103,30 @@ class Repository @Inject constructor(
                                                        sortBy : String,
                                                        categories : String): BusinessesItem? {
         if(categories == Constants.ALL_CATEGORY_SPINNER_KEYWORD) {
-            fetchNoCategoryLatitudeLongitudeBusiness(
+            return fetchNoCategoryLatitudeLongitudeBusiness(
                 longitude,
                 latitude,
                 radius,
                 price,
                 openNow,
                 sortBy)
-        }
-        Timber.e(" Repository => ${sortByMapDao.getApiSortByKey(sortBy)}")
-        val businesses = yelpApiHelper.getBusinessesWithLongitudeLatitude(
-            longitude,
-            latitude,
-            radius,
-            price.length.toString(),
-            openNowConversion(openNow),
-            sortByMapDao.getApiSortByKey(sortBy),
-            categoryMapDao.getApiCategoryName(categories))
+        } else {
+            Timber.e(" Repository => ${sortByMapDao.getApiSortByKey(sortBy)}")
+            val businesses = yelpApiHelper.getBusinessesWithLongitudeLatitude(
+                    longitude,
+                    latitude,
+                    convertMilesToMeters(radius.toInt()).toString(),
+                    price.length.toString(),
+                    openNowConversion(openNow),
+                    sortByMapDao.getApiSortByKey(sortBy),
+                    categoryMapDao.getApiCategoryName(categories))
 
-        //Computes random business from return businesses
-        val randomBusinessJob  = cpuScope.async { randomBusiness(businesses)}
-        val randomBus = randomBusinessJob.await()
-        return randomBus
+            //Computes random business from return businesses
+            val randomBusinessJob  = cpuScope.async { randomBusiness(businesses)}
+            val randomBus = randomBusinessJob.await()
+            return randomBus
+        }
+
     }
 
     /**
@@ -133,7 +141,7 @@ class Repository @Inject constructor(
         val businesses = yelpApiHelper.getBusinessesWithLongitudeLatitudeNoCategory(
             longitude,
             latitude,
-            radius,
+            convertMilesToMeters(radius.toInt()).toString(),
             price.length.toString(),
             openNowConversion(openNow),
             sortByMapDao.getApiSortByKey(sortBy)

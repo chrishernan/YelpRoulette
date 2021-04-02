@@ -49,6 +49,7 @@ class YelpViewModel @Inject constructor(
                     null,
                     "Loading Random Business"
             ))
+            Timber.e("Just sent out loading result")
             val businessJob = viewModelCoroutineScope.async {
                     repository.fetchCategoryBusiness(
                         address,
@@ -76,7 +77,13 @@ class YelpViewModel @Inject constructor(
                                      sortBy : String,
                                      categories : String) {
         viewModelCoroutineScope.launch(coroutineExceptionHandler) {
-            var latitudeLongitudeJob = viewModelCoroutineScope.async {
+            randomYelpRestaurant.postValue(Result(
+                    Result.Status.LOADING,
+                    null,
+                    "Loading Random Business"
+            ))
+            Timber.e("Just sent out loading result")
+            val latitudeLongitudeJob = viewModelCoroutineScope.async {
                 repository.fetchCategoryLatitudeLongitudeBusiness(
                     longitude,
                     latitude,
