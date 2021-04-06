@@ -34,7 +34,7 @@ class Repository @Inject constructor(
 
     /**
      * Fetches businesses when category is specifed (not equal to "Any")
-     * TODO add way to catch if we get back 0 results from request
+     *
      */
     suspend fun fetchCategoryBusiness(address : String,
                                       radius : String,
@@ -176,6 +176,8 @@ class Repository @Inject constructor(
      * Adds all spinner/dropdown mappings to the Room database to use in our API calls
      */
     fun addAllMappingsToDB() {
+        categoryMapDao.delete("French")
+        Timber.e(categoryMapDao.getApiCategoryName("French"))
         for(i in categoryMapStringArray.toList()) {
             val splitString = i.split(",").toTypedArray()
             categoryMapDao.insert(splitString[0],splitString[1])
@@ -185,6 +187,7 @@ class Repository @Inject constructor(
             val splitString = j.split(",").toTypedArray()
             sortByMapDao.insert(splitString[0],splitString[1])
         }
+        Timber.e(categoryMapDao.getApiCategoryName("French"))
         Timber.e("Room DB Populated")
     }
 

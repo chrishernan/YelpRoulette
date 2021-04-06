@@ -16,10 +16,8 @@ interface CategoryMapDao {
     @Query("INSERT INTO CategoryMap (category,apiCategoryName) VALUES (:category,:apiCategoryName)")
     fun insert(category : String, apiCategoryName : String)
 
-    @Insert
-    fun insertAll(vararg categoryMaps : CategoryMap)
+    @Query("DELETE FROM CategoryMap WHERE category = :category")
+    fun delete(category: String)
 
-    @Delete
-    fun delete(categoryMap : CategoryMap)
 
 }

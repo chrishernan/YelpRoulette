@@ -9,13 +9,11 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.View
-import android.widget.RadioButton
-import android.widget.RadioGroup
-import android.widget.Spinner
-import android.widget.Toast
+import android.widget.*
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -27,9 +25,7 @@ import androidx.lifecycle.Observer
 import com.example.yelproulette.IO.YelpApiHelper
 import com.example.yelproulette.R
 import com.example.yelproulette.ViewModel.YelpViewModel
-import com.example.yelproulette.fragments.ProgressBarFragment
-import com.example.yelproulette.fragments.SingleBusinessFragment
-import com.example.yelproulette.fragments.StartFragment
+import com.example.yelproulette.fragments.*
 import com.example.yelproulette.utils.Result
 import com.example.yelproulette.utils.convertMilesToMeters
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -55,7 +51,7 @@ class MainActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //todo change this so it only populates once or when prompted. Not everytime activity is created
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         viewModel.populateDb()
         setContentView(R.layout.activity_main)
         supportFragmentManager.commit {
@@ -64,7 +60,6 @@ class MainActivity : AppCompatActivity() {
 
         }
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
-        //todo figure out how to make observers stop observing after it's been done once.probaly resetting w/ onDestroy
         setupObservers()
         getLocationPermission()
         getDeviceLocation()
@@ -84,6 +79,8 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("BinaryOperationInTimber")
     private fun setupObservers() {
         val progressBarDialog  = ProgressBarFragment()
+        val zeroBusinessDialog = ZeroBusinessesDialogFragment()
+        val errorDialog = ErrorDialogFragment()
         viewModel.randomYelpRestaurant.observe(this, Observer {
             when (it.status) {
                 Result.Status.SUCCESS -> {
@@ -102,8 +99,8 @@ class MainActivity : AppCompatActivity() {
                     stopObservingRandomYelpBusiness()
                 }
                 Result.Status.ZERO -> {
-                    //todo display dialog saying we couldn't find any restaurants matching the current stuff
-                    Timber.e("Zero businesses returned")
+                    progressBarDialog.dismissAllowingStateLoss()
+                    zeroBusinessDialog.show(supportFragmentManager,ZeroBusinessesDialogFragment.TAG)
                 }
                 Result.Status.LOADING -> {
                     //display a Progress Bar.
@@ -111,7 +108,9 @@ class MainActivity : AppCompatActivity() {
 
                 }
                 Result.Status.ERROR -> {
-                    //todo display dialog saying there was an error
+                    errorDialog.show(supportFragmentManager,ErrorDialogFragment.TAG)
+                    errorDialog.requireView().findViewById<TextView>(R.id.text_view_error_dialog_fragment)
+                        .text = it.message.toString()
                 }
 
 
@@ -131,7 +130,6 @@ class MainActivity : AppCompatActivity() {
         if(view is RadioButton) {
             val checked = view.isChecked
 
-            //todo make background for buttons and implement logic to select and unselect other buttons.
             when(view.id) {
                 R.id.one_dollar_sign_radio_button ->
                     if(checked && !checkIfRadioButtonIsAlreadyChecked(view)) {

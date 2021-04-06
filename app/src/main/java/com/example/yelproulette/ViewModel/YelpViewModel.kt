@@ -21,7 +21,6 @@ class YelpViewModel @Inject constructor(
 
     private val viewModelCoroutineScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
     var randomYelpRestaurant = MutableLiveData<Result<BusinessesItem?>>()
-    //todo test what happens when result returns an error of some kind. and see if we handle it well
     private val coroutineExceptionHandler = CoroutineExceptionHandler { coroutineContext, exception ->
         Timber.e("Exception Thrown => $exception")
         randomYelpRestaurant.postValue(Result(
@@ -125,10 +124,12 @@ class YelpViewModel @Inject constructor(
     @RequiresApi(Build.VERSION_CODES.O)
     fun populateDb() {
         viewModelCoroutineScope.launch(coroutineExceptionHandler) {
-            var populateDbJob = viewModelCoroutineScope.async {
+            val populateDbJob = viewModelCoroutineScope.async {
                 repository.addAllMappingsToDB()
             }
+            populateDbJob.await()
         }
+
     }
 
     fun clearRandomYelpRestaurant() {

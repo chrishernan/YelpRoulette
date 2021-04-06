@@ -1,7 +1,5 @@
 package com.example.yelproulette.fragments
 
-import android.app.AlertDialog
-import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,8 +12,7 @@ class ProgressBarFragment : DialogFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
         //inflater.inflate(R.layout.fragment_progress_bar_fragment,container,false)
-        val view : View = inflater.inflate(R.layout.fragment_progress_bar_fragment,container, false)
-        return view
+        return inflater.inflate(R.layout.fragment_progress_bar_fragment,container, false)
     }
 
     companion object {

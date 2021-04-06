@@ -19,6 +19,12 @@
     <string name="progress_bar_text">Finding Random Restaurant</string>
     <string name="business_title_string">SAMPLE SINGLE BUSINESS</string>
 
+    <!-- Progress Bar Layout values -->
+    <string name="zero_business_text">No restaurants found that fit your selection :(</string>
+
+    <!-- Progress Bar Layout values -->
+    <string name="error_dialog_text">Unexpected Error happened while trying to retrieve a restaurant</string>
+
     <!-- single business activity string values -->
     <string name="business_food_image_view">BUSINESS FOOD PHOTO</string>
     <string name="num_of_ratings_place_holder">100</string>
@@ -26,7 +32,7 @@
     <string name="directions_button">Directions</string>
     <string name="yelp_button">Yelp</string>
 
-
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

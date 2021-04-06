@@ -1,7 +1,11 @@
 package com.example.yelproulette.utils
 
+import timber.log.Timber
+
 fun convertMilesToMeters(miles: Int) : Int {
-    return miles*Constants.METER_TO_MILE
+    val meters = miles*Constants.METER_TO_MILE
+    Timber.e("Miles => $miles  :   Meters => $meters")
+    return meters
 }
 
 

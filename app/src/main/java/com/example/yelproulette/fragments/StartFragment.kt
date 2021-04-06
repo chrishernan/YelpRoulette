@@ -18,13 +18,7 @@ import com.example.yelproulette.ViewModel.YelpViewModel
  * create an instance of this fragment.
  */
 class StartFragment : Fragment() {
-    // TODO: Rename and change types of parameters
     private val viewModel : YelpViewModel by activityViewModels()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,9 +47,8 @@ class StartFragment : Fragment() {
          *
          * @return A new instance of fragment StartFragment.
          */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
+        fun newInstance() =
             StartFragment()
     }
 
