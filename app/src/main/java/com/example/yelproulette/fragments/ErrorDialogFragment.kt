@@ -35,8 +35,7 @@ class ErrorDialogFragment : DialogFragment() {
          * @return A new instance of fragment ErrorDialogFragment.
          */
         @JvmStatic
-        fun newInstance() =
-            ErrorDialogFragment()
+        fun newInstance() = ErrorDialogFragment()
 
         const val TAG = "ErrorDialogFragment"
 

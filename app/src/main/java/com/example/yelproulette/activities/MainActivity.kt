@@ -2,6 +2,7 @@ package com.example.yelproulette.activities
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
@@ -29,6 +30,7 @@ import com.example.yelproulette.fragments.*
 import com.example.yelproulette.utils.Result
 import com.example.yelproulette.utils.convertMilesToMeters
 import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationRequest.PRIORITY_HIGH_ACCURACY
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
@@ -109,8 +111,8 @@ class MainActivity : AppCompatActivity() {
                 }
                 Result.Status.ERROR -> {
                     errorDialog.show(supportFragmentManager,ErrorDialogFragment.TAG)
-                    errorDialog.requireView().findViewById<TextView>(R.id.text_view_error_dialog_fragment)
-                        .text = it.message.toString()
+                    //errorDialog.requireView().findViewById<TextView>(R.id.text_view_error_dialog_fragment)
+                        //.text = it.message.toString()
                 }
 
 
@@ -188,17 +190,39 @@ class MainActivity : AppCompatActivity() {
             getDeviceLocation()
         }
         else {
-            Timber.e("Current Longitude => ${lastKnownLocation?.longitude.toString()}")
-            Timber.e("Current latitude => ${lastKnownLocation?.latitude.toString()}")
+            //todo add task to get current location if last location fails
+                if(lastKnownLocation == null) {
+                    getDeviceLocation()
+                    Timber.e("lastKnownLocation is null")
+                    Timber.e("spin clicked")
+                    Timber.e("Current Longitude => ${lastKnownLocation?.longitude.toString()}")
+                    Timber.e("Current latitude => ${lastKnownLocation?.latitude.toString()}")
 
-            viewModel.getRandomBusinessWithLongLat(
-                    lastKnownLocation?.longitude.toString(),
-                    lastKnownLocation?.latitude.toString(),
-                    layout.findViewById<Spinner>(R.id.distance_spinner).selectedItem.toString(),
-                    checkedRadioButton.text.toString(),
-                    layout.findViewById<Spinner>(R.id.open_now_spinner).selectedItem.toString(),
-                    layout.findViewById<Spinner>(R.id.sort_by_spinner).selectedItem.toString(),
-                    layout.findViewById<Spinner>(R.id.category_spinner).selectedItem.toString())
+                    viewModel.getRandomBusinessWithLongLat(
+                        lastKnownLocation?.longitude.toString(),
+                        lastKnownLocation?.latitude.toString(),
+                        layout.findViewById<Spinner>(R.id.distance_spinner).selectedItem.toString(),
+                        checkedRadioButton.text.toString(),
+                        layout.findViewById<Spinner>(R.id.open_now_spinner).selectedItem.toString(),
+                        layout.findViewById<Spinner>(R.id.sort_by_spinner).selectedItem.toString(),
+                        layout.findViewById<Spinner>(R.id.category_spinner).selectedItem.toString()
+                    )
+                }
+                else {
+                    Timber.e("spin clicked")
+                    Timber.e("Current Longitude => ${lastKnownLocation?.longitude.toString()}")
+                    Timber.e("Current latitude => ${lastKnownLocation?.latitude.toString()}")
+
+                    viewModel.getRandomBusinessWithLongLat(
+                        lastKnownLocation?.longitude.toString(),
+                        lastKnownLocation?.latitude.toString(),
+                        layout.findViewById<Spinner>(R.id.distance_spinner).selectedItem.toString(),
+                        checkedRadioButton.text.toString(),
+                        layout.findViewById<Spinner>(R.id.open_now_spinner).selectedItem.toString(),
+                        layout.findViewById<Spinner>(R.id.sort_by_spinner).selectedItem.toString(),
+                        layout.findViewById<Spinner>(R.id.category_spinner).selectedItem.toString()
+                    )
+                }
         }
 
 
@@ -213,7 +237,6 @@ class MainActivity : AppCompatActivity() {
                 findViewById<RadioButton>(radioButton.id).background = ContextCompat.getDrawable(
                         applicationContext,
                         R.drawable.price_unselected_background)
-
             }
         }
     }
@@ -269,20 +292,51 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+    @RequiresApi(Build.VERSION_CODES.M)
     fun getLocationPermission() {
         /*
          * Request location permission, so that we can get the location of the
          * device. The result of the permission request is handled by a callback,
          * onRequestPermissionsResult.
          */
-        if (ContextCompat.checkSelfPermission(this.applicationContext,
+        Timber.e("in getLocationPermission")
+
+
+        when {
+            ContextCompat.checkSelfPermission(
+                this.applicationContext,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED -> {
+                // You can use the API that requires the permission.
+                locationPermissionGranted = true
+            }
+            shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION) -> {
+            // In an educational UI, explain to the user why your app requires this
+            // permission for a specific feature to behave as expected. In this UI,
+            // include a "cancel" or "no thanks" button that allows the user to
+            // continue using your app without granting the permission.
+
+            //TODO implement UI to show user why we need location permission, probably a dialog
+        }
+            else -> {
+                // You can directly ask for the permission.
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                    PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION)
+            }
+        }
+
+
+            /* old method
+       if (ContextCompat.checkSelfPermission(this.applicationContext,
                         Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             locationPermissionGranted = true
         } else {
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
                     PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION)
-        }
+        }*/
     }
 
     override fun onRequestPermissionsResult(requestCode: Int,
@@ -292,12 +346,26 @@ class MainActivity : AppCompatActivity() {
         locationPermissionGranted = false
         when (requestCode) {
             PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION -> {
-
+                Timber.e("PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION")
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.isNotEmpty() &&
                         grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     locationPermissionGranted = true
+                } else {
+                    // Explain to the user that the feature is unavailable because
+                    // the features requires a permission that the user has denied.
+                    // At the same time, respect the user's decision. Don't link to
+                    // system settings in an effort to convince the user to change
+                    // their decision.
+
                 }
+                return
+            }
+
+            // Add other 'when' lines to check for other
+            // permissions this app might request.
+            else -> {
+                // Ignore all other requests.
             }
         }
     }
@@ -309,21 +377,19 @@ class MainActivity : AppCompatActivity() {
          */
         try {
             if (locationPermissionGranted) {
-                val locationResult = fusedLocationProviderClient.lastLocation
-                locationResult.addOnCompleteListener(this) { task ->
-                    if (task.isSuccessful) {
-                        // Set the map's camera position to the current location of the device.
-                        lastKnownLocation = task.result
-
-                    } else {
-                        Timber.e("Current location is null. Using defaults.")
-                        Timber.e( "Exception: ${task.exception}")
-//                        Same thing. Not needed. We just need the latitude, longitude
-//                        map?.moveCamera(CameraUpdateFactory
-//                                .newLatLngZoom(defaultLocation, DEFAULT_ZOOM.toFloat()))
-//                        map?.uiSettings?.isMyLocationButtonEnabled = false
-                    }
-                }
+                    Timber.e("before getting current location")
+                    fusedLocationProviderClient.getCurrentLocation(PRIORITY_HIGH_ACCURACY,null)
+                        .addOnSuccessListener { location: Location? ->
+                            // Set the map's camera position to the current location of the device.
+                            Timber.e("getting current location")
+                            lastKnownLocation = location
+                        }
+                        .addOnCanceledListener {
+                            Timber.e("cancelled")
+                        }
+                        .addOnFailureListener {
+                            Timber.e(it.message)
+                        }
             }
         } catch (e: SecurityException) {
             Timber.e("Security Exception")
