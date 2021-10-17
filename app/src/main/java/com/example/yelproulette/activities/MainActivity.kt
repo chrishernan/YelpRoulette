@@ -102,6 +102,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 Result.Status.ZERO -> {
                     progressBarDialog.dismissAllowingStateLoss()
+                    Timber.e("Zero ")
                     zeroBusinessDialog.show(supportFragmentManager,ZeroBusinessesDialogFragment.TAG)
                 }
                 Result.Status.LOADING -> {
@@ -110,6 +111,7 @@ class MainActivity : AppCompatActivity() {
 
                 }
                 Result.Status.ERROR -> {
+                    Timber.e("ERROR ")
                     errorDialog.show(supportFragmentManager,ErrorDialogFragment.TAG)
                     //errorDialog.requireView().findViewById<TextView>(R.id.text_view_error_dialog_fragment)
                         //.text = it.message.toString()

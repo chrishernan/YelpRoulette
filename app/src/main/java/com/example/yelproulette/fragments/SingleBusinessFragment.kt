@@ -23,8 +23,6 @@ import com.example.yelproulette.R
 import com.example.yelproulette.ViewModel.YelpViewModel
 import com.example.yelproulette.activities.MainActivity
 import com.example.yelproulette.utils.Constants
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
@@ -36,9 +34,12 @@ import timber.log.Timber
  * Use the [SingleBusinessFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class SingleBusinessFragment : Fragment(){
+class SingleBusinessFragment : Fragment(), OnMapReadyCallback{
     private val viewModel : YelpViewModel by activityViewModels()
+    //Setting up google map and rendering it
+    private lateinit var mapView : MapView
 
+    private val MAPVIEW_BUNDLE_KEY : String = "MapViewBundleKey"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,9 +67,12 @@ class SingleBusinessFragment : Fragment(){
         view.findViewById<RatingBar>(R.id.business_rating_bar).rating = yelpRestaurant.rating!!.toFloat()
         view.findViewById<TextView>(R.id.single_business_price_text_view).text = yelpRestaurant.price!!
 
-        //Setting up google map and rendering it
-        val mapView = view.findViewById<MapView>(R.id.map)
-        mapView.onCreate(savedInstanceState)
+        var mapViewBundle : Bundle? = null
+        if(savedInstanceState != null){
+            mapViewBundle = savedInstanceState.getBundle(MAPVIEW_BUNDLE_KEY)
+        }
+        mapView = view.findViewById(R.id.map)
+        mapView.onCreate(mapViewBundle)
         mapView.onResume()
         try{
             MapsInitializer.initialize(activity?.applicationContext)
@@ -77,7 +81,8 @@ class SingleBusinessFragment : Fragment(){
         }
 
         mapView.getMapAsync( OnMapReadyCallback {
-            it.apply {
+            this
+            /*it.apply {
                 Timber.e("Latitude => ${viewModel.randomYelpRestaurant.value!!.data!!.coordinates!!.latitude!!}")
                 Timber.e("Longitude => ${viewModel.randomYelpRestaurant.value!!.data!!.coordinates!!.longitude!!}")
                 val currentRestaurant = LatLng(
@@ -88,11 +93,53 @@ class SingleBusinessFragment : Fragment(){
                                 .position(currentRestaurant)
                                 .title("Current Restaurant")
                 )
+
+                Timber.e("after map rendered")
                 moveCamera(CameraUpdateFactory.newLatLngZoom(currentRestaurant, Constants.STREET_ZOOM_LEVEL))
-            }
+                Timber.e("camera moved")
+
+            }*/
         })
 
         return view
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        var mapViewBundle = outState.getBundle(MAPVIEW_BUNDLE_KEY)
+        if (mapViewBundle == null) {
+            mapViewBundle = Bundle()
+            outState.putBundle(MAPVIEW_BUNDLE_KEY, mapViewBundle)
+        }
+        mapView.onSaveInstanceState(mapViewBundle)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mapView.onResume()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        mapView.onStart()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        mapView.onStop()
+    }
+
+    override fun onMapReady(map: GoogleMap) {
+        Timber.e("Latitude => ${viewModel.randomYelpRestaurant.value!!.data!!.coordinates!!.latitude!!}")
+        Timber.e("Longitude => ${viewModel.randomYelpRestaurant.value!!.data!!.coordinates!!.longitude!!}")
+        val currentRestaurant = LatLng(
+            viewModel.randomYelpRestaurant.value!!.data!!.coordinates!!.latitude!!,
+            viewModel.randomYelpRestaurant.value!!.data!!.coordinates!!.longitude!!)
+
+        map.addMarker(MarkerOptions().position(currentRestaurant).title("Current Restaurant"))
+
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(currentRestaurant, Constants.STREET_ZOOM_LEVEL))
+
     }
 
     /**
