@@ -34,7 +34,7 @@ import timber.log.Timber
  * Use the [SingleBusinessFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class SingleBusinessFragment : Fragment(), OnMapReadyCallback{
+class SingleBusinessFragment : Fragment() {
     private val viewModel : YelpViewModel by activityViewModels()
     //Setting up google map and rendering it
     private lateinit var mapView : MapView
@@ -81,8 +81,8 @@ class SingleBusinessFragment : Fragment(), OnMapReadyCallback{
         }
 
         mapView.getMapAsync( OnMapReadyCallback {
-            this
-            /*it.apply {
+            //todo figure out why first time it is called. Location is null.
+            it.apply {
                 Timber.e("Latitude => ${viewModel.randomYelpRestaurant.value!!.data!!.coordinates!!.latitude!!}")
                 Timber.e("Longitude => ${viewModel.randomYelpRestaurant.value!!.data!!.coordinates!!.longitude!!}")
                 val currentRestaurant = LatLng(
@@ -98,7 +98,7 @@ class SingleBusinessFragment : Fragment(), OnMapReadyCallback{
                 moveCamera(CameraUpdateFactory.newLatLngZoom(currentRestaurant, Constants.STREET_ZOOM_LEVEL))
                 Timber.e("camera moved")
 
-            }*/
+            }
         })
 
         return view
@@ -129,18 +129,6 @@ class SingleBusinessFragment : Fragment(), OnMapReadyCallback{
         mapView.onStop()
     }
 
-    override fun onMapReady(map: GoogleMap) {
-        Timber.e("Latitude => ${viewModel.randomYelpRestaurant.value!!.data!!.coordinates!!.latitude!!}")
-        Timber.e("Longitude => ${viewModel.randomYelpRestaurant.value!!.data!!.coordinates!!.longitude!!}")
-        val currentRestaurant = LatLng(
-            viewModel.randomYelpRestaurant.value!!.data!!.coordinates!!.latitude!!,
-            viewModel.randomYelpRestaurant.value!!.data!!.coordinates!!.longitude!!)
-
-        map.addMarker(MarkerOptions().position(currentRestaurant).title("Current Restaurant"))
-
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(currentRestaurant, Constants.STREET_ZOOM_LEVEL))
-
-    }
 
     /**
      * Will call subsequent functions to set listeners for ImageButtons in this page

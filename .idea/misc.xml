@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../.gradle/caches/transforms-2/files-2.1/d5fb8d6f74214f5c54cf733ae1eceb36/appcompat-1.2.0/res/drawable/abc_ic_ab_back_material.xml" value="0.14166666666666666" />
         <entry key="app/src/main/res/layout/fragment_single_business.xml" value="0.1765625" />
       </map>
     </option>
