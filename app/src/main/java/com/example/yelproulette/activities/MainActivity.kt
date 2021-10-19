@@ -47,6 +47,7 @@ class MainActivity : AppCompatActivity() {
     private var locationPermissionGranted = false
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private var lastKnownLocation: Location? = null
+    private var isLocationRequestDone = false
     private var map: GoogleMap? = null
     private val defaultLocation = LatLng(-33.8523341, 151.2106085)
 
@@ -193,24 +194,10 @@ class MainActivity : AppCompatActivity() {
         }
         else {
             //todo add task to get current location if last location fails
-                if(lastKnownLocation == null) {
+                if(lastKnownLocation == null && isLocationRequestDone) {
                     getDeviceLocation()
-                    Timber.e("lastKnownLocation is null")
-                    Timber.e("spin clicked")
-                    Timber.e("Current Longitude => ${lastKnownLocation?.longitude.toString()}")
-                    Timber.e("Current latitude => ${lastKnownLocation?.latitude.toString()}")
-
-                    viewModel.getRandomBusinessWithLongLat(
-                        lastKnownLocation?.longitude.toString(),
-                        lastKnownLocation?.latitude.toString(),
-                        layout.findViewById<Spinner>(R.id.distance_spinner).selectedItem.toString(),
-                        checkedRadioButton.text.toString(),
-                        layout.findViewById<Spinner>(R.id.open_now_spinner).selectedItem.toString(),
-                        layout.findViewById<Spinner>(R.id.sort_by_spinner).selectedItem.toString(),
-                        layout.findViewById<Spinner>(R.id.category_spinner).selectedItem.toString()
-                    )
                 }
-                else {
+                else if(isLocationRequestDone) {
                     Timber.e("spin clicked")
                     Timber.e("Current Longitude => ${lastKnownLocation?.longitude.toString()}")
                     Timber.e("Current latitude => ${lastKnownLocation?.latitude.toString()}")
@@ -384,12 +371,15 @@ class MainActivity : AppCompatActivity() {
                         .addOnSuccessListener { location: Location? ->
                             // Set the map's camera position to the current location of the device.
                             Timber.e("getting current location")
+                            isLocationRequestDone = true
                             lastKnownLocation = location
                         }
                         .addOnCanceledListener {
+                            isLocationRequestDone = false
                             Timber.e("cancelled")
                         }
                         .addOnFailureListener {
+                            isLocationRequestDone = false
                             Timber.e(it.message)
                         }
             }
