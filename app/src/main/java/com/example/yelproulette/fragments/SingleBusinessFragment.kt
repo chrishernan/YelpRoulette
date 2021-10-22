@@ -81,7 +81,6 @@ class SingleBusinessFragment : Fragment() {
         }
 
         mapView.getMapAsync( OnMapReadyCallback {
-            //todo figure out why first time it is called. Location is null.
             it.apply {
                 Timber.e("Latitude => ${viewModel.randomYelpRestaurant.value!!.data!!.coordinates!!.latitude!!}")
                 Timber.e("Longitude => ${viewModel.randomYelpRestaurant.value!!.data!!.coordinates!!.longitude!!}")

@@ -24,6 +24,7 @@
 
     <!-- Progress Bar Layout values -->
     <string name="error_dialog_text">Unexpected Error happened while trying to retrieve a restaurant</string>
+    <string name="location_null_dialog_text">Location was not retrieved succesfully. Please go back and try again.</string>
 
     <!-- single business activity string values -->
     <string name="business_food_image_view">BUSINESS FOOD PHOTO</string>

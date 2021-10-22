@@ -174,6 +174,7 @@ class MainActivity : AppCompatActivity() {
      */
     @RequiresApi(Build.VERSION_CODES.O)
     fun onSpinButtonClick(view : View) {
+        val locationNullFragment  = LocationNullFragment()
         val layout = view.parent as ConstraintLayout
         Timber.e("Distance => ${layout.findViewById<Spinner>(R.id.distance_spinner).selectedItem}")
         Timber.e("Category => ${layout.findViewById<Spinner>(R.id.category_spinner).selectedItem}")
@@ -193,9 +194,10 @@ class MainActivity : AppCompatActivity() {
             getDeviceLocation()
         }
         else {
-            //todo add task to get current location if last location fails
-                if(lastKnownLocation == null && isLocationRequestDone) {
+                if(lastKnownLocation == null) {
+                    Timber.e("last location is null in spin")
                     getDeviceLocation()
+                    locationNullFragment.show(supportFragmentManager,LocationNullFragment.TAG)
                 }
                 else if(isLocationRequestDone) {
                     Timber.e("spin clicked")
