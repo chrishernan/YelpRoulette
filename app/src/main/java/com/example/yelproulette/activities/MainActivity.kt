@@ -2,13 +2,14 @@ package com.example.yelproulette.activities
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.util.AttributeSet
 import android.view.View
 import android.widget.*
 import androidx.activity.viewModels
@@ -19,7 +20,6 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.iterator
-import androidx.fragment.app.add
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
 import androidx.lifecycle.Observer
@@ -28,14 +28,12 @@ import com.example.yelproulette.R
 import com.example.yelproulette.ViewModel.YelpViewModel
 import com.example.yelproulette.fragments.*
 import com.example.yelproulette.utils.Result
-import com.example.yelproulette.utils.convertMilesToMeters
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationRequest.PRIORITY_HIGH_ACCURACY
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import javax.inject.Inject
@@ -133,39 +131,36 @@ class MainActivity : AppCompatActivity() {
      * Changes background to show radio button is selected.
      */
     fun onPriceButtonClick(view: View) {
-        val radioGroup = view.parent as RadioGroup
-        if(view is RadioButton) {
-            val checked = view.isChecked
 
+        if(view is android.widget.Button) {
             when(view.id) {
-                R.id.one_dollar_sign_radio_button ->
-                    if(checked && !checkIfRadioButtonIsAlreadyChecked(view)) {
-                        view.background = ContextCompat.getDrawable(
-                                applicationContext,
-                                R.drawable.price_selected_background)
-                        uncheckPreviousSelection(radioGroup,view.id)
-
+                R.id.one_dollar_sign_button ->
+                    if(view.isPressed and !view.isSelected) {
+                        view.isSelected = true
                     }
-                R.id.two_dollar_sign_radio_button ->
-                    if(checked && !checkIfRadioButtonIsAlreadyChecked(view)) {
-                        view.background = ContextCompat.getDrawable(
-                                applicationContext,
-                                R.drawable.price_selected_background)
-                        uncheckPreviousSelection(radioGroup,view.id)
+                    else if (view.isPressed and view.isSelected) {
+                        view.isSelected = false
                     }
-                R.id.three_dollar_sign_radio_button ->
-                    if(checked && !checkIfRadioButtonIsAlreadyChecked(view)) {
-                        view.background =  ContextCompat.getDrawable(
-                                applicationContext,
-                                R.drawable.price_selected_background)
-                        uncheckPreviousSelection(radioGroup,view.id)
+                R.id.two_dollar_sign_button ->
+                    if(view.isPressed and !view.isSelected) {
+                        view.isSelected = true
                     }
-                R.id.four_dollar_sign_radio_button ->
-                    if(checked && !checkIfRadioButtonIsAlreadyChecked(view)) {
-                        view.background =  ContextCompat.getDrawable(
-                                applicationContext,
-                                R.drawable.price_selected_background)
-                        uncheckPreviousSelection(radioGroup,view.id)
+                    else if (view.isPressed and view.isSelected) {
+                        view.isSelected = false
+                    }
+                R.id.three_dollar_sign_button ->
+                    if(view.isPressed and !view.isSelected) {
+                        view.isSelected = true
+                    }
+                    else if (view.isPressed and view.isSelected) {
+                        view.isSelected = false
+                    }
+                R.id.four_dollar_sign_button ->
+                    if(view.isPressed and !view.isSelected) {
+                        view.isSelected = true
+                    }
+                    else if (view.isPressed and view.isSelected) {
+                        view.isSelected = false
                     }
             }
         }
@@ -181,7 +176,7 @@ class MainActivity : AppCompatActivity() {
                     if(checked && !checkIfRadioButtonIsAlreadyChecked(view)) {
                         view.background = ContextCompat.getDrawable(
                             applicationContext,
-                            R.drawable.price_selected_background)
+                            R.drawable.open_now_selected_background)
                         uncheckPreviousSelection(radioGroup,view.id)
 
                     }
@@ -189,7 +184,7 @@ class MainActivity : AppCompatActivity() {
                     if(checked && !checkIfRadioButtonIsAlreadyChecked(view)) {
                         view.background = ContextCompat.getDrawable(
                             applicationContext,
-                            R.drawable.price_selected_background)
+                            R.drawable.open_now_selected_background)
                         uncheckPreviousSelection(radioGroup,view.id)
                     }
             }
@@ -208,11 +203,11 @@ class MainActivity : AppCompatActivity() {
         Timber.e("Category => ${layout.findViewById<TextInputEditText>
             (R.id.category_text_input_edit_text).toString()}")
         Timber.e("sort by => ${layout.findViewById<Spinner>(R.id.sort_by_spinner).selectedItem}")
-        val priceCheckedRadioButton : RadioButton = findViewById(layout
-            .findViewById<RadioGroup>(R.id.price_radio_group).checkedRadioButtonId)
+        val priceSelectedButtons = generateYelpPriceArgument()
+            //findViewById(layout.findViewById<RadioGroup>(R.id.price_radio_group).checkedRadioButtonId)
         val openNowCheckedRadioButton : RadioButton = findViewById(layout
             .findViewById<RadioGroup>(R.id.open_now_radio_group).checkedRadioButtonId)
-        Timber.e("price => ${priceCheckedRadioButton.text}")
+        //Timber.e("price => ${priceCheckedRadioButton.text}")
 
 
         if(!locationPermissionGranted) {
@@ -238,7 +233,7 @@ class MainActivity : AppCompatActivity() {
                         lastKnownLocation?.longitude.toString(),
                         lastKnownLocation?.latitude.toString(),
                         layout.findViewById<Spinner>(R.id.distance_spinner).selectedItem.toString(),
-                        priceCheckedRadioButton.text.toString(),
+                        priceSelectedButtons.toString(),
                         openNowCheckedRadioButton.text.toString(),
                         layout.findViewById<Spinner>(R.id.sort_by_spinner).selectedItem.toString(),
                         layout.findViewById<TextInputEditText>(R.id.category_text_input_edit_text)
@@ -246,8 +241,6 @@ class MainActivity : AppCompatActivity() {
                     )
                 }
         }
-
-
     }
 
     /**
@@ -258,7 +251,7 @@ class MainActivity : AppCompatActivity() {
             if(radioButton.id != checkedRadioButtonId) {
                 findViewById<RadioButton>(radioButton.id).background = ContextCompat.getDrawable(
                         applicationContext,
-                        R.drawable.price_unselected_background)
+                        R.drawable.open_now_unselected_background)
             }
         }
     }
@@ -267,7 +260,24 @@ class MainActivity : AppCompatActivity() {
         //drawable is equal to our R.drawable.price_selected_background
         return radioButton.background == ContextCompat.getDrawable(
                 applicationContext,
-                R.drawable.price_selected_background)
+                R.drawable.open_now_selected_background)
+    }
+
+    /**
+     *  Generates string used by yelp api to retrieve business within a certain price range
+     */
+    private fun generateYelpPriceArgument() : String {
+        val priceButtonLinearLayout : LinearLayout = findViewById(R.id.price_button_linear_layout)
+        var priceString = ""
+        var priceList = mutableListOf<String>()
+        for(button in priceButtonLinearLayout) {
+            if(button.isSelected) {
+                priceList.add((button as android.widget.Button).text.length.toString())
+            }
+        }
+        priceString = priceList.joinToString(separator = ",")
+        Timber.e(priceString)
+        return priceString
     }
 
     fun goToDialer(phoneNumber : String) {
@@ -311,6 +321,7 @@ class MainActivity : AppCompatActivity() {
         //clears Previous random yelp restaurant and sets up observers for new action
         viewModel.clearRandomYelpRestaurant()
         setupObservers()
+
     }
 
 

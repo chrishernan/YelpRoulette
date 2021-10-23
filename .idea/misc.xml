@@ -4,6 +4,16 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../.gradle/caches/transforms-2/files-2.1/d5fb8d6f74214f5c54cf733ae1eceb36/appcompat-1.2.0/res/drawable/abc_ic_ab_back_material.xml" value="0.14166666666666666" />
+        <entry key="app/src/main/res/drawable/circle_button.xml" value="0.2953703703703704" />
+        <entry key="app/src/main/res/drawable/ic_baseline_phone_24.xml" value="0.20833333333333334" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.20833333333333334" />
+        <entry key="app/src/main/res/drawable/open_now_button_effect.xml" value="0.20833333333333334" />
+        <entry key="app/src/main/res/drawable/open_now_default_background.xml" value="0.2953703703703704" />
+        <entry key="app/src/main/res/drawable/open_now_focused_background.xml" value="0.20833333333333334" />
+        <entry key="app/src/main/res/drawable/open_now_pressed_background.xml" value="0.2953703703703704" />
+        <entry key="app/src/main/res/drawable/price_selected_background.xml" value="0.20833333333333334" />
+        <entry key="app/src/main/res/drawable/price_unselected_background.xml" value="0.20833333333333334" />
+        <entry key="app/src/main/res/drawable/riple_spin_button.xml" value="0.20833333333333334" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.20208333333333334" />
         <entry key="app/src/main/res/layout/fragment_error_dialog.xml" value="0.20208333333333334" />
         <entry key="app/src/main/res/layout/fragment_horizontal_progress_bar_fragment.xml" value="0.20208333333333334" />

@@ -28,6 +28,8 @@ class StartFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_start, container, false)
         val distanceSpinner : Spinner = view.findViewById(R.id.distance_spinner)
         val sortBySpinner : Spinner = view.findViewById(R.id.sort_by_spinner)
+        val onedollarSignButton : android.widget.Button = view.findViewById(R.id.one_dollar_sign_button)
+        onedollarSignButton.isSelected = true
 
         //Creating array adapters for all 4 spinners on main screen
         createAdapter(distanceSpinner,R.array.distances_array)
