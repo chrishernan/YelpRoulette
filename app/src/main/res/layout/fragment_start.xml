@@ -13,16 +13,16 @@
         android:layout_height="wrap_content"
         android:text="@string/distance_text"
         app:layout_constraintBottom_toTopOf="@+id/distance_spinner"
-        app:layout_constraintEnd_toStartOf="@+id/vertical_mid_guideline_right"
-        app:layout_constraintStart_toStartOf="@id/vertical_mid_guideline_left"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/vertical_mid_guideline_right"
+        app:layout_constraintTop_toTopOf="@id/horizontal_mid_guideline"
         app:layout_constraintHorizontal_bias="0.0"/>
 
     <Spinner
         android:id="@+id/distance_spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@id/horizontal_mid_guideline"
+        app:layout_constraintBottom_toBottomOf="@id/horizontal_mid_guideline_two"
         app:layout_constraintStart_toStartOf="@id/distance_text_view"
         app:layout_constraintTop_toBottomOf="@id/distance_text_view" />
 
@@ -31,18 +31,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/category_text"
-        app:layout_constraintBottom_toTopOf="@id/category_spinner"
+        app:layout_constraintBottom_toTopOf="@id/category_text_input_layout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/vertical_mid_guideline_right"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
-    <Spinner
-        android:id="@+id/category_spinner"
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/category_text_input_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="@id/horizontal_mid_guideline"
-        app:layout_constraintStart_toStartOf="@id/category_text_view"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/category_text_view" />
 
     <TextView
@@ -51,7 +51,7 @@
         android:layout_height="wrap_content"
         android:text="@string/sort_by_text"
         app:layout_constraintBottom_toTopOf="@id/sort_by_spinner"
-        app:layout_constraintEnd_toStartOf="@id/open_now_text_view"
+        app:layout_constraintEnd_toStartOf="@id/distance_text_view"
         app:layout_constraintStart_toEndOf="@id/vertical_mid_guideline_left"
         app:layout_constraintTop_toTopOf="@id/horizontal_mid_guideline"
         app:layout_constraintHorizontal_bias="0" />
@@ -64,24 +64,6 @@
         app:layout_constraintStart_toStartOf="@id/sort_by_text_view"
         app:layout_constraintBottom_toTopOf="@id/horizontal_mid_guideline_two" />
 
-    <TextView
-        android:id="@+id/open_now_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/open_now_text"
-        app:layout_constraintBottom_toTopOf="@id/open_now_spinner"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/vertical_mid_guideline_right"
-        app:layout_constraintTop_toTopOf="@id/horizontal_mid_guideline"
-        app:layout_constraintHorizontal_bias="0.0"/>
-
-    <Spinner
-        android:id="@+id/open_now_spinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@id/horizontal_mid_guideline_two"
-        app:layout_constraintStart_toStartOf="@id/open_now_text_view"
-        app:layout_constraintTop_toBottomOf="@id/open_now_text_view" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/horizontal_mid_guideline"

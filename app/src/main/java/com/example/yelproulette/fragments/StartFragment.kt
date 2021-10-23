@@ -27,15 +27,11 @@ class StartFragment : Fragment() {
 
         val view = inflater.inflate(R.layout.fragment_start, container, false)
         val distanceSpinner : Spinner = view.findViewById(R.id.distance_spinner)
-        val categorySpinner : Spinner = view.findViewById(R.id.category_spinner)
         val sortBySpinner : Spinner = view.findViewById(R.id.sort_by_spinner)
-        val openNowSpinner : Spinner = view.findViewById(R.id.open_now_spinner)
 
         //Creating array adapters for all 4 spinners on main screen
         createAdapter(distanceSpinner,R.array.distances_array)
-        createAdapter(categorySpinner,R.array.categories_array)
         createAdapter(sortBySpinner,R.array.sort_by_spinner_array)
-        createAdapter(openNowSpinner,R.array.open_now_spinner_array)
         // Inflate the layout for this fragment
         return view
     }
