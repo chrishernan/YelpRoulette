@@ -10,6 +10,10 @@
     <dimen name="price_radio_group_width">250dp</dimen>
     <dimen name="price_radio_button_width">62.5dp</dimen>
 
+    <dimen name="open_now_radio_group_height">30dp</dimen>
+    <dimen name="open_now_radio_group_width">100dp</dimen>
+    <dimen name="open_now_radio_button_width">62.5dp</dimen>
+
     <dimen name="background_corner_radius">5dp</dimen>
     <dimen name="background_stroke_width">3dp</dimen>
 

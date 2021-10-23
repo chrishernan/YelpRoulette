@@ -101,13 +101,61 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent=".8" />
 
+    <TextView
+        android:id="@+id/open_now_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/open_now_text"
+        app:layout_constraintEnd_toStartOf="@id/vertical_mid_guideline_end"
+        app:layout_constraintStart_toEndOf="@id/vertical_mid_guideline_left"
+        app:layout_constraintTop_toBottomOf="@id/horizontal_mid_guideline_two"
+        app:layout_constraintBottom_toTopOf="@id/open_now_radio_group"
+        />
+
+
+    <RadioGroup
+        android:id="@+id/open_now_radio_group"
+        android:layout_height="@dimen/open_now_radio_group_height"
+        android:layout_width="@dimen/open_now_radio_group_width"
+        app:layout_constraintEnd_toStartOf="@id/vertical_mid_guideline_end"
+        app:layout_constraintStart_toEndOf="@id/vertical_mid_guideline_left"
+        app:layout_constraintTop_toBottomOf="@id/horizontal_mid_guideline_two"
+        app:layout_constraintBottom_toTopOf="@id/price_radio_group"
+        android:orientation="horizontal"
+        >
+
+
+        <RadioButton
+            android:id="@+id/open_now_true"
+            android:layout_width="@dimen/open_now_radio_button_width"
+            android:layout_height="match_parent"
+            android:checked="true"
+            android:button="@null"
+            android:textAlignment="center"
+            android:text="@string/open_now_yes"
+            android:background="@drawable/price_selected_background"
+            android:onClick="onPriceButtonClick" />
+
+        <RadioButton
+            android:id="@+id/open_now_false"
+            android:layout_width="@dimen/open_now_radio_button_width"
+            android:layout_height="match_parent"
+            android:button="@null"
+            android:textAlignment="center"
+            android:text="@string/open_now_no"
+            android:background="@drawable/price_unselected_background"
+            android:onClick="onPriceButtonClick" />
+
+    </RadioGroup>
+
+
     <RadioGroup
         android:id="@+id/price_radio_group"
         android:layout_width="@dimen/price_radio_group_width"
         android:layout_height="@dimen/price_radio_group_height"
         app:layout_constraintEnd_toStartOf="@id/vertical_mid_guideline_end"
         app:layout_constraintStart_toEndOf="@id/vertical_mid_guideline_left"
-        app:layout_constraintTop_toBottomOf="@id/horizontal_mid_guideline_two"
+        app:layout_constraintTop_toBottomOf="@id/open_now_radio_group"
         app:layout_constraintBottom_toTopOf="@id/spin_button"
         app:layout_constraintHorizontal_bias="0.0"
         android:orientation="horizontal">
@@ -166,7 +214,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/horizontal_mid_guideline_two"
+        app:layout_constraintTop_toBottomOf="@id/price_radio_group"
         android:contentDescription="@string/spin_button_description"
         android:focusable="true" />
 
