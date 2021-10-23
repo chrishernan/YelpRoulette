@@ -34,6 +34,8 @@ import com.google.android.gms.location.LocationRequest.PRIORITY_HIGH_ACCURACY
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import javax.inject.Inject
@@ -169,6 +171,31 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    fun onOpenNowButtonClick(view : View) {
+        val radioGroup = view.parent as RadioGroup
+        if(view is RadioButton) {
+            val checked = view.isChecked
+
+            when(view.id) {
+                R.id.open_now_true ->
+                    if(checked && !checkIfRadioButtonIsAlreadyChecked(view)) {
+                        view.background = ContextCompat.getDrawable(
+                            applicationContext,
+                            R.drawable.price_selected_background)
+                        uncheckPreviousSelection(radioGroup,view.id)
+
+                    }
+                R.id.open_now_false ->
+                    if(checked && !checkIfRadioButtonIsAlreadyChecked(view)) {
+                        view.background = ContextCompat.getDrawable(
+                            applicationContext,
+                            R.drawable.price_selected_background)
+                        uncheckPreviousSelection(radioGroup,view.id)
+                    }
+            }
+        }
+    }
+
     /**
      * Will start repository requests and send user to loading activity
      */
@@ -176,13 +203,16 @@ class MainActivity : AppCompatActivity() {
     fun onSpinButtonClick(view : View) {
         val locationNullFragment  = LocationNullFragment()
         val layout = view.parent as ConstraintLayout
+        //todo rewrite this to accept new open_now toggle input and text_input form category
         Timber.e("Distance => ${layout.findViewById<Spinner>(R.id.distance_spinner).selectedItem}")
-        Timber.e("Category => ${layout.findViewById<Spinner>(R.id.category_spinner).selectedItem}")
+        Timber.e("Category => ${layout.findViewById<TextInputEditText>
+            (R.id.category_text_input_edit_text).toString()}")
         Timber.e("sort by => ${layout.findViewById<Spinner>(R.id.sort_by_spinner).selectedItem}")
-        Timber.e("open now => ${layout.findViewById<Spinner>(R.id.open_now_spinner).selectedItem}")
-        val checkedRadioButton : RadioButton = findViewById(layout
+        val priceCheckedRadioButton : RadioButton = findViewById(layout
             .findViewById<RadioGroup>(R.id.price_radio_group).checkedRadioButtonId)
-        Timber.e("price => ${checkedRadioButton.text}")
+        val openNowCheckedRadioButton : RadioButton = findViewById(layout
+            .findViewById<RadioGroup>(R.id.open_now_radio_group).checkedRadioButtonId)
+        Timber.e("price => ${priceCheckedRadioButton.text}")
 
 
         if(!locationPermissionGranted) {
@@ -208,10 +238,11 @@ class MainActivity : AppCompatActivity() {
                         lastKnownLocation?.longitude.toString(),
                         lastKnownLocation?.latitude.toString(),
                         layout.findViewById<Spinner>(R.id.distance_spinner).selectedItem.toString(),
-                        checkedRadioButton.text.toString(),
-                        layout.findViewById<Spinner>(R.id.open_now_spinner).selectedItem.toString(),
+                        priceCheckedRadioButton.text.toString(),
+                        openNowCheckedRadioButton.text.toString(),
                         layout.findViewById<Spinner>(R.id.sort_by_spinner).selectedItem.toString(),
-                        layout.findViewById<Spinner>(R.id.category_spinner).selectedItem.toString()
+                        layout.findViewById<TextInputEditText>(R.id.category_text_input_edit_text)
+                            .toString()
                     )
                 }
         }

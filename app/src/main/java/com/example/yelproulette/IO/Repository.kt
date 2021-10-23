@@ -43,14 +43,13 @@ class Repository @Inject constructor(
                                       sortBy : String,
                                       categories : String) : BusinessesItem? {
         //If categories is set to Any call different function to handle that
-        if(categories == Constants.ALL_CATEGORY_SPINNER_KEYWORD) {
+        if(categories.isEmpty()) {
             return fetchNoCategoryBusiness(
                 address,
                 radius,
                 price,
                 openNow,
-                sortBy,
-                categories)
+                sortBy)
         }
         //else, if there is a category, handle in this function
         else {
@@ -60,7 +59,7 @@ class Repository @Inject constructor(
                     price.length.toString(),
                     openNowConversion(openNow),
                     sortByMapDao.getApiSortByKey(sortBy),
-                    categoryMapDao.getApiCategoryName(categories))
+                    categories)
 
             //Computes random business from return businesses
             val randomBusinessJob  = cpuScope.async { randomBusiness(businesses)}
@@ -77,8 +76,7 @@ class Repository @Inject constructor(
                                         radius : String,
                                         price : String,
                                         openNow : String,
-                                        sortBy : String,
-                                        categories : String) : BusinessesItem? {
+                                        sortBy : String) : BusinessesItem? {
         val businesses = yelpApiHelper.getBusinessesNoCategory(
             address,
             convertMilesToMeters(radius.toInt()).toString(),
@@ -102,7 +100,7 @@ class Repository @Inject constructor(
                                                        openNow : String,
                                                        sortBy : String,
                                                        categories : String): BusinessesItem? {
-        if(categories == Constants.ALL_CATEGORY_SPINNER_KEYWORD) {
+        if(categories.isEmpty()) {
             return fetchNoCategoryLatitudeLongitudeBusiness(
                 longitude,
                 latitude,
@@ -119,7 +117,7 @@ class Repository @Inject constructor(
                     price.length.toString(),
                     openNowConversion(openNow),
                     sortByMapDao.getApiSortByKey(sortBy),
-                    categoryMapDao.getApiCategoryName(categories))
+                    categories)
 
             //Computes random business from return businesses
             val randomBusinessJob  = cpuScope.async { randomBusiness(businesses)}

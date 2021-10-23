@@ -16,8 +16,8 @@
     <string name="spin_button_description">Spin</string>
 
     <!-- Open now button values -->
-    <string name="open_now_yes">yes</string>
-    <string name="open_now_no">no</string>
+    <string name="open_now_yes">Yes</string>
+    <string name="open_now_no">No</string>
 
     <!-- Progress Bar Layout values -->
     <string name="progress_bar_text">Finding Random Restaurant</string>
