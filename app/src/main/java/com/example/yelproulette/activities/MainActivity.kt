@@ -35,6 +35,7 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.textfield.TextInputEditText
 import dagger.hilt.android.AndroidEntryPoint
+import org.angmarch.views.NiceSpinner
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -199,10 +200,10 @@ class MainActivity : AppCompatActivity() {
         val locationNullFragment  = LocationNullFragment()
         val layout = view.parent as ConstraintLayout
         //todo rewrite this to accept new open_now toggle input and text_input form category
-        Timber.e("Distance => ${layout.findViewById<Spinner>(R.id.distance_spinner).selectedItem}")
+        Timber.e("Distance => ${layout.findViewById<NiceSpinner>(R.id.distance_spinner).selectedItem}")
         Timber.e("Category => ${layout.findViewById<TextInputEditText>
             (R.id.category_text_input_edit_text).toString()}")
-        Timber.e("sort by => ${layout.findViewById<Spinner>(R.id.sort_by_spinner).selectedItem}")
+        Timber.e("sort by => ${layout.findViewById<NiceSpinner>(R.id.sort_by_spinner).selectedItem}")
         val priceSelectedButtons = generateYelpPriceArgument()
             //findViewById(layout.findViewById<RadioGroup>(R.id.price_radio_group).checkedRadioButtonId)
         val openNowCheckedRadioButton : RadioButton = findViewById(layout
@@ -232,10 +233,10 @@ class MainActivity : AppCompatActivity() {
                     viewModel.getRandomBusinessWithLongLat(
                         lastKnownLocation?.longitude.toString(),
                         lastKnownLocation?.latitude.toString(),
-                        layout.findViewById<Spinner>(R.id.distance_spinner).selectedItem.toString(),
+                        layout.findViewById<NiceSpinner>(R.id.distance_spinner).selectedItem.toString(),
                         priceSelectedButtons.toString(),
                         openNowCheckedRadioButton.text.toString(),
-                        layout.findViewById<Spinner>(R.id.sort_by_spinner).selectedItem.toString(),
+                        layout.findViewById<NiceSpinner>(R.id.sort_by_spinner).selectedItem.toString(),
                         layout.findViewById<TextInputEditText>(R.id.category_text_input_edit_text)
                             .toString()
                     )

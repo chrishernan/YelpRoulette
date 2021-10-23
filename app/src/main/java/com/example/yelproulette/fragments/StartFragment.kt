@@ -4,12 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.Spinner
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.yelproulette.R
 import com.example.yelproulette.ViewModel.YelpViewModel
+import org.angmarch.views.NiceSpinner
+import timber.log.Timber
+import java.util.*
 
 
 /**
@@ -26,14 +27,17 @@ class StartFragment : Fragment() {
     ): View? {
 
         val view = inflater.inflate(R.layout.fragment_start, container, false)
-        val distanceSpinner : Spinner = view.findViewById(R.id.distance_spinner)
-        val sortBySpinner : Spinner = view.findViewById(R.id.sort_by_spinner)
+        val distanceSpinner : NiceSpinner = view.findViewById(R.id.distance_spinner)
+        val sortBySpinner : NiceSpinner = view.findViewById(R.id.sort_by_spinner)
         val onedollarSignButton : android.widget.Button = view.findViewById(R.id.one_dollar_sign_button)
         onedollarSignButton.isSelected = true
 
-        //Creating array adapters for all 4 spinners on main screen
-        createAdapter(distanceSpinner,R.array.distances_array)
-        createAdapter(sortBySpinner,R.array.sort_by_spinner_array)
+        val distanceList : List<String> = resources.getStringArray(R.array.distances_array).toList()
+        val sortByList : List<String> = resources.getStringArray(R.array.sort_by_spinner_array).toList()
+
+        distanceSpinner.attachDataSource(distanceList)
+        sortBySpinner.attachDataSource(sortByList)
+
         // Inflate the layout for this fragment
         return view
     }
@@ -50,19 +54,7 @@ class StartFragment : Fragment() {
             StartFragment()
     }
 
-    /**
-     * Creates adapter for spinners
-     */
-    private fun createAdapter(spinner: Spinner, array: Int) {
-        ArrayAdapter.createFromResource(
-            requireActivity().applicationContext,
-            array,
-            android.R.layout.simple_spinner_item
-        ).also { adapter ->
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_item)
-            spinner.adapter = adapter
-        }
-    }
+
 
     fun displayProgressBarDialog() {
 
