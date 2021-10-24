@@ -80,7 +80,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent=".35" />
+        app:layout_constraintGuide_percent=".3" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/vertical_mid_guideline_left"
@@ -113,88 +113,105 @@
         app:layout_constraintStart_toEndOf="@id/vertical_mid_guideline_left"
         app:layout_constraintTop_toBottomOf="@id/horizontal_mid_guideline_two"
         app:layout_constraintBottom_toTopOf="@id/open_now_radio_group"
+        app:layout_constraintVertical_bias="0.25"
         />
 
     <RadioGroup
         android:id="@+id/open_now_radio_group"
-        android:layout_height="@dimen/open_now_radio_group_height"
         android:layout_width="@dimen/open_now_radio_group_width"
+        android:layout_height="@dimen/open_now_radio_group_height"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@id/price_linear_layout"
         app:layout_constraintEnd_toStartOf="@id/vertical_mid_guideline_end"
         app:layout_constraintStart_toEndOf="@id/vertical_mid_guideline_left"
-        app:layout_constraintTop_toBottomOf="@id/horizontal_mid_guideline_two"
-        app:layout_constraintBottom_toTopOf="@id/price_button_linear_layout"
-        android:orientation="horizontal"
-        >
+        app:layout_constraintTop_toBottomOf="@id/horizontal_mid_guideline_two">
 
         <RadioButton
             android:id="@+id/open_now_true"
             android:layout_width="@dimen/open_now_radio_button_width"
             android:layout_height="match_parent"
-            android:checked="true"
-            android:button="@null"
-            android:textAlignment="center"
-            android:text="@string/open_now_yes"
             android:background="@drawable/open_now_selected_background"
-            android:onClick="onOpenNowButtonClick" />
+            android:button="@null"
+            android:checked="true"
+            android:onClick="onOpenNowButtonClick"
+            android:text="@string/open_now_yes"
+            android:textAlignment="center" />
 
         <RadioButton
             android:id="@+id/open_now_false"
             android:layout_width="@dimen/open_now_radio_button_width"
             android:layout_height="match_parent"
-            android:button="@null"
-            android:textAlignment="center"
-            android:text="@string/open_now_no"
             android:background="@drawable/open_now_unselected_background"
-            android:onClick="onOpenNowButtonClick" />
+            android:button="@null"
+            android:onClick="onOpenNowButtonClick"
+            android:text="@string/open_now_no"
+            android:textAlignment="center" />
     </RadioGroup>
 
     <LinearLayout
-        android:id="@+id/price_button_linear_layout"
-        android:layout_width="@dimen/price_radio_group_width"
-        android:layout_height="@dimen/price_radio_group_height"
+        android:id="@+id/price_linear_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
         app:layout_constraintEnd_toStartOf="@id/vertical_mid_guideline_end"
         app:layout_constraintStart_toEndOf="@id/vertical_mid_guideline_left"
         app:layout_constraintTop_toBottomOf="@id/open_now_radio_group"
         app:layout_constraintBottom_toTopOf="@id/spin_button"
-        app:layout_constraintHorizontal_bias="0.0"
-        android:orientation="horizontal">
+        app:layout_constraintHorizontal_bias="0.0">
 
-        <android.widget.Button
-            android:id="@+id/one_dollar_sign_button"
-            android:layout_width="@dimen/price_radio_button_width"
-            android:layout_height="match_parent"
-            android:textAlignment="center"
-            android:text="@string/one_dollar_sign"
-            android:background="@drawable/price_button_effect"
-            android:onClick="onPriceButtonClick" />
+        <TextView
+            android:id="@+id/price_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/price_text"
+            android:paddingBottom="@dimen/price_bottom_padding"/>
 
-        <android.widget.Button
-            android:id="@+id/two_dollar_sign_button"
-            android:layout_width="@dimen/price_radio_button_width"
-            android:layout_height="match_parent"
-            android:textAlignment="center"
-            android:text="@string/two_dollar_sign"
-            android:background="@drawable/price_button_effect"
-            android:onClick="onPriceButtonClick" />
+        <LinearLayout
+            android:id="@+id/price_button_linear_layout"
+            android:layout_width="@dimen/price_radio_group_width"
+            android:layout_height="@dimen/price_radio_group_height"
+            android:orientation="horizontal">
 
-        <android.widget.Button
-            android:id="@+id/three_dollar_sign_button"
-            android:layout_width="@dimen/price_radio_button_width"
-            android:layout_height="match_parent"
-            android:textAlignment="center"
-            android:text="@string/three_dollar_sign"
-            android:background="@drawable/price_button_effect"
-            android:onClick="onPriceButtonClick" />
+            <android.widget.Button
+                android:id="@+id/one_dollar_sign_button"
+                android:layout_width="@dimen/price_radio_button_width"
+                android:layout_height="match_parent"
+                android:textAlignment="center"
+                android:text="@string/one_dollar_sign"
+                android:background="@drawable/price_button_effect"
+                android:onClick="onPriceButtonClick" />
 
-        <android.widget.Button
-            android:id="@+id/four_dollar_sign_button"
-            android:layout_width="@dimen/price_radio_button_width"
-            android:layout_height="match_parent"
-            android:textAlignment="center"
-            android:text="@string/four_dollar_sign"
-            android:background="@drawable/price_button_effect"
-            android:onClick="onPriceButtonClick" />
+            <android.widget.Button
+                android:id="@+id/two_dollar_sign_button"
+                android:layout_width="@dimen/price_radio_button_width"
+                android:layout_height="match_parent"
+                android:textAlignment="center"
+                android:text="@string/two_dollar_sign"
+                android:background="@drawable/price_button_effect"
+                android:onClick="onPriceButtonClick" />
+
+            <android.widget.Button
+                android:id="@+id/three_dollar_sign_button"
+                android:layout_width="@dimen/price_radio_button_width"
+                android:layout_height="match_parent"
+                android:textAlignment="center"
+                android:text="@string/three_dollar_sign"
+                android:background="@drawable/price_button_effect"
+                android:onClick="onPriceButtonClick" />
+
+            <android.widget.Button
+                android:id="@+id/four_dollar_sign_button"
+                android:layout_width="@dimen/price_radio_button_width"
+                android:layout_height="match_parent"
+                android:textAlignment="center"
+                android:text="@string/four_dollar_sign"
+                android:background="@drawable/price_button_effect"
+                android:onClick="onPriceButtonClick" />
+        </LinearLayout>
     </LinearLayout>
+
+
 
     <android.widget.Button
         android:id="@+id/spin_button"
@@ -208,7 +225,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/price_button_linear_layout"
+        app:layout_constraintTop_toBottomOf="@id/price_linear_layout"
         android:contentDescription="@string/spin_button_description"
         android:focusable="true" />
 

@@ -202,7 +202,7 @@ class MainActivity : AppCompatActivity() {
         //todo rewrite this to accept new open_now toggle input and text_input form category
         Timber.e("Distance => ${layout.findViewById<NiceSpinner>(R.id.distance_spinner).selectedItem}")
         Timber.e("Category => ${layout.findViewById<TextInputEditText>
-            (R.id.category_text_input_edit_text).toString()}")
+            (R.id.category_text_input_edit_text).text.toString()}")
         Timber.e("sort by => ${layout.findViewById<NiceSpinner>(R.id.sort_by_spinner).selectedItem}")
         val priceSelectedButtons = generateYelpPriceArgument()
             //findViewById(layout.findViewById<RadioGroup>(R.id.price_radio_group).checkedRadioButtonId)
@@ -238,7 +238,7 @@ class MainActivity : AppCompatActivity() {
                         openNowCheckedRadioButton.text.toString(),
                         layout.findViewById<NiceSpinner>(R.id.sort_by_spinner).selectedItem.toString(),
                         layout.findViewById<TextInputEditText>(R.id.category_text_input_edit_text)
-                            .toString()
+                            .text.toString().lowercase()
                     )
                 }
         }
