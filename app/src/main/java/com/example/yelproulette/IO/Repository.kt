@@ -109,7 +109,6 @@ class Repository @Inject constructor(
                 openNow,
                 sortBy)
         } else {
-            Timber.e(" Repository => ${sortByMapDao.getApiSortByKey(sortBy)}")
             val businesses = yelpApiHelper.getBusinessesWithLongitudeLatitude(
                     longitude,
                     latitude,
@@ -160,10 +159,6 @@ class Repository @Inject constructor(
         return if(businesses.total != 0) {
             val ran = businesses.businesses?.let { Random.nextInt(0, it.size) }
             val randomBusiness = ran?.let { businesses.businesses[it] }
-            for(i in 0 until businesses.businesses?.size!!) {
-                Timber.e("Business $i => ${businesses.businesses[i]?.name}")
-            }
-            Timber.e("Random business => ${randomBusiness?.name}")
             randomBusiness
         } else{
             null
@@ -175,7 +170,6 @@ class Repository @Inject constructor(
      */
     fun addAllMappingsToDB() {
         categoryMapDao.delete("French")
-        Timber.e(categoryMapDao.getApiCategoryName("French"))
         for(i in categoryMapStringArray.toList()) {
             val splitString = i.split(",").toTypedArray()
             categoryMapDao.insert(splitString[0],splitString[1])
@@ -185,7 +179,6 @@ class Repository @Inject constructor(
             val splitString = j.split(",").toTypedArray()
             sortByMapDao.insert(splitString[0],splitString[1])
         }
-        Timber.e(categoryMapDao.getApiCategoryName("French"))
         Timber.e("Room DB Populated")
     }
 

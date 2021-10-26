@@ -89,9 +89,6 @@ class MainActivity : AppCompatActivity() {
             when (it.status) {
                 Result.Status.SUCCESS -> {
                     //Go to next activity
-                    Timber.e("Random Business Successfully retrieved => " +
-                            "Name => ${it.data!!.name} Distance => ${it.data.distance} " +
-                            "Rating =>${it.data.rating}")
                     progressBarDialog.dismissAllowingStateLoss()
 
                     supportFragmentManager.commit {
@@ -104,7 +101,6 @@ class MainActivity : AppCompatActivity() {
                 }
                 Result.Status.ZERO -> {
                     progressBarDialog.dismissAllowingStateLoss()
-                    Timber.e("Zero ")
                     zeroBusinessDialog.show(supportFragmentManager,ZeroBusinessesDialogFragment.TAG)
                 }
                 Result.Status.LOADING -> {
@@ -113,7 +109,6 @@ class MainActivity : AppCompatActivity() {
 
                 }
                 Result.Status.ERROR -> {
-                    Timber.e("ERROR ")
                     errorDialog.show(supportFragmentManager,ErrorDialogFragment.TAG)
                     //errorDialog.requireView().findViewById<TextView>(R.id.text_view_error_dialog_fragment)
                         //.text = it.message.toString()
@@ -199,11 +194,6 @@ class MainActivity : AppCompatActivity() {
     fun onSpinButtonClick(view : View) {
         val locationNullFragment  = LocationNullFragment()
         val layout = view.parent as ConstraintLayout
-        //todo rewrite this to accept new open_now toggle input and text_input form category
-        Timber.e("Distance => ${layout.findViewById<NiceSpinner>(R.id.distance_spinner).selectedItem}")
-        Timber.e("Category => ${layout.findViewById<TextInputEditText>
-            (R.id.category_text_input_edit_text).text.toString()}")
-        Timber.e("sort by => ${layout.findViewById<NiceSpinner>(R.id.sort_by_spinner).selectedItem}")
         val priceSelectedButtons = generateYelpPriceArgument()
             //findViewById(layout.findViewById<RadioGroup>(R.id.price_radio_group).checkedRadioButtonId)
         val openNowCheckedRadioButton : RadioButton = findViewById(layout
@@ -221,14 +211,10 @@ class MainActivity : AppCompatActivity() {
         }
         else {
                 if(lastKnownLocation == null) {
-                    Timber.e("last location is null in spin")
                     getDeviceLocation()
                     locationNullFragment.show(supportFragmentManager,LocationNullFragment.TAG)
                 }
                 else if(isLocationRequestDone) {
-                    Timber.e("spin clicked")
-                    Timber.e("Current Longitude => ${lastKnownLocation?.longitude.toString()}")
-                    Timber.e("Current latitude => ${lastKnownLocation?.latitude.toString()}")
 
                     viewModel.getRandomBusinessWithLongLat(
                         lastKnownLocation?.longitude.toString(),
@@ -277,7 +263,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
         priceString = priceList.joinToString(separator = ",")
-        Timber.e(priceString)
         return priceString
     }
 
@@ -333,8 +318,6 @@ class MainActivity : AppCompatActivity() {
          * device. The result of the permission request is handled by a callback,
          * onRequestPermissionsResult.
          */
-        Timber.e("in getLocationPermission")
-
 
         when {
             ContextCompat.checkSelfPermission(
@@ -380,7 +363,6 @@ class MainActivity : AppCompatActivity() {
         locationPermissionGranted = false
         when (requestCode) {
             PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION -> {
-                Timber.e("PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION")
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.isNotEmpty() &&
                         grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -411,25 +393,20 @@ class MainActivity : AppCompatActivity() {
          */
         try {
             if (locationPermissionGranted) {
-                    Timber.e("before getting current location")
                     fusedLocationProviderClient.getCurrentLocation(PRIORITY_HIGH_ACCURACY,null)
                         .addOnSuccessListener { location: Location? ->
                             // Set the map's camera position to the current location of the device.
-                            Timber.e("getting current location")
                             isLocationRequestDone = true
                             lastKnownLocation = location
                         }
                         .addOnCanceledListener {
                             isLocationRequestDone = false
-                            Timber.e("cancelled")
                         }
                         .addOnFailureListener {
                             isLocationRequestDone = false
-                            Timber.e(it.message)
                         }
             }
         } catch (e: SecurityException) {
-            Timber.e("Security Exception")
             Timber.e(e)
         }
     }

@@ -67,6 +67,7 @@ class SingleBusinessFragment : Fragment() {
         view.findViewById<RatingBar>(R.id.business_rating_bar).rating = yelpRestaurant.rating!!.toFloat()
         view.findViewById<TextView>(R.id.single_business_price_text_view).text = yelpRestaurant.price!!
 
+        //Map View Set up
         var mapViewBundle : Bundle? = null
         if(savedInstanceState != null){
             mapViewBundle = savedInstanceState.getBundle(MAPVIEW_BUNDLE_KEY)
@@ -82,8 +83,6 @@ class SingleBusinessFragment : Fragment() {
 
         mapView.getMapAsync( OnMapReadyCallback {
             it.apply {
-                Timber.e("Latitude => ${viewModel.randomYelpRestaurant.value!!.data!!.coordinates!!.latitude!!}")
-                Timber.e("Longitude => ${viewModel.randomYelpRestaurant.value!!.data!!.coordinates!!.longitude!!}")
                 val currentRestaurant = LatLng(
                         viewModel.randomYelpRestaurant.value!!.data!!.coordinates!!.latitude!!,
                         viewModel.randomYelpRestaurant.value!!.data!!.coordinates!!.longitude!!)
@@ -92,11 +91,7 @@ class SingleBusinessFragment : Fragment() {
                                 .position(currentRestaurant)
                                 .title("Current Restaurant")
                 )
-
-                Timber.e("after map rendered")
                 moveCamera(CameraUpdateFactory.newLatLngZoom(currentRestaurant, Constants.STREET_ZOOM_LEVEL))
-                Timber.e("camera moved")
-
             }
         })
 
@@ -160,28 +155,12 @@ class SingleBusinessFragment : Fragment() {
         }
     }
 
-    /**
-     * Sets onClickListener for directions button.
-     */
     @RequiresApi(Build.VERSION_CODES.M)
     private fun setonClickListenerForDirectionsButton(view: View) {
         val directionsButton = view.findViewById<ImageButton>(R.id.business_directions_button)
         directionsButton.setOnClickListener {
             val fullAddress = viewModel.randomYelpRestaurant.value!!.data!!.location
             if(fullAddress?.address1?.isNotEmpty() == true) {
-//               val streetAddress =
-//                       formatAddress1(fullAddress.address1) +
-//                       formatAddress2(fullAddress.address2.toString()) +
-//                       formatAddress3(fullAddress.address3.toString())
-//                Timber.e(streetAddress)
-//
-//                val cityStateZipCode =
-//                        formatCity(fullAddress.city.toString()) +
-//                        formatState(fullAddress.state.toString()) +
-//                        formatZipCode(fullAddress.zipCode.toString())
-//                Timber.e(cityStateZipCode)
-//
-//                val address = "$streetAddress,$cityStateZipCode"
 
                 val address = fullAddress.displayAddress?.joinToString()
                 Timber.e(address)
@@ -192,25 +171,15 @@ class SingleBusinessFragment : Fragment() {
 
 
             } else {
-                Timber.e("No Address for current Business")
                 Toast.makeText(
                         activity?.applicationContext,
                         "This Business does not have an address registered with Yelp",
                         Toast.LENGTH_SHORT).show()
             }
-
-
-                    //formats address to be used in google maps navigation quert
-//                            .location?.displayAddress?.joinToString(
-//                            prefix = Constants.GOOGLE_MAPS_NAVIGATION_PREFIX,
-//                            postfix="",
-//                            separator=Constants.GOOGLE_MAPS_NAVIGATION_SEPARATOR)
         }
     }
 
-    /**
-     *
-     */
+
     private fun setonClickListenerForYelpButton(view: View) {
         val yelpImageButton = view.findViewById<ImageButton>(R.id.business_yelp_button)
         yelpImageButton.setOnClickListener {

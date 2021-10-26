@@ -48,7 +48,6 @@ class YelpViewModel @Inject constructor(
                     null,
                     "Loading Random Business"
             ))
-            Timber.e("Just sent out loading result")
             val businessJob = viewModelCoroutineScope.async {
                     repository.fetchCategoryBusiness(
                         address,
@@ -81,7 +80,6 @@ class YelpViewModel @Inject constructor(
                     null,
                     "Loading Random Business"
             ))
-            Timber.e("Just sent out loading result")
             val latitudeLongitudeJob = viewModelCoroutineScope.async {
                 repository.fetchCategoryLatitudeLongitudeBusiness(
                     longitude,
