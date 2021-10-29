@@ -17,6 +17,15 @@
         app:layout_constraintBottom_toTopOf="@id/business_top_horizontal_guide_line"
         android:contentDescription="@string/business_food_image_view" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/business_top_horizontal_guide_line"
+        android:contentDescription="@string/business_food_image_view"
+        android:background="@drawable/scrim_gradient"/>
+
     <TextView
         android:id="@+id/business_title_text_view"
         android:layout_width="wrap_content"
@@ -77,10 +86,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/business_rating_bar" />
 
-    <ImageButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/business_call_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:elevation="8dp"
+        app:borderWidth="0dp"
         android:src="@drawable/ic_baseline_phone_24"
         app:layout_constraintTop_toBottomOf="@id/business_rating_bar"
         app:layout_constraintStart_toStartOf="parent"
@@ -99,10 +110,12 @@
         app:layout_constraintEnd_toEndOf="@id/business_call_button"
         app:layout_constraintBottom_toTopOf="@id/business_bottom_horizontal_guide_line"/>
 
-    <ImageButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/business_directions_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:elevation="8dp"
+        app:borderWidth="0dp"
         android:src="@drawable/ic_baseline_map_24"
         app:layout_constraintTop_toBottomOf="@id/business_rating_bar"
         app:layout_constraintStart_toEndOf="@id/business_call_button"
@@ -114,16 +127,19 @@
         android:id="@+id/business_directions_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:elevation="8dp"
         android:text="@string/directions_button"
         app:layout_constraintTop_toBottomOf="@id/business_directions_button"
         app:layout_constraintStart_toStartOf="@id/business_directions_button"
         app:layout_constraintEnd_toEndOf="@id/business_directions_button"
         app:layout_constraintBottom_toTopOf="@id/business_bottom_horizontal_guide_line"/>
 
-    <ImageButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/business_yelp_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:elevation="8dp"
+        app:borderWidth="0dp"
         android:src="@drawable/ic_baseline_double_arrow_24"
         app:layout_constraintStart_toEndOf="@id/business_directions_button"
         app:layout_constraintBottom_toTopOf="@id/business_yelp_text_view"

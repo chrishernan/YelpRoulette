@@ -7,24 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".fragments.StartFragment">
 
-    <TextView
-        android:id="@+id/distance_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/distance_text"
-        app:layout_constraintBottom_toTopOf="@+id/distance_spinner"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/vertical_mid_guideline_right"
-        app:layout_constraintTop_toTopOf="@id/horizontal_mid_guideline"
-        app:layout_constraintHorizontal_bias="0.0"/>
-
-    <org.angmarch.views.NiceSpinner
-        android:id="@+id/distance_spinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@id/horizontal_mid_guideline_two"
-        app:layout_constraintStart_toStartOf="@id/distance_text_view"
-        app:layout_constraintTop_toBottomOf="@id/distance_text_view" />
 
     <TextView
         android:id="@+id/category_text_view"
@@ -48,6 +30,28 @@
         app:layout_constraintTop_toBottomOf="@id/category_text_view" />
 
     <TextView
+        android:id="@+id/distance_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/distance_text"
+        app:layout_constraintBottom_toTopOf="@+id/distance_spinner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/vertical_mid_guideline_right"
+        app:layout_constraintTop_toTopOf="@id/horizontal_mid_guideline"
+        app:layout_constraintHorizontal_bias="0.0"/>
+
+    <org.angmarch.views.NiceSpinner
+        android:id="@+id/distance_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="4dp"
+        app:layout_constraintBottom_toBottomOf="@id/horizontal_mid_guideline_two"
+        app:layout_constraintStart_toStartOf="@id/distance_text_view"
+        app:layout_constraintTop_toBottomOf="@id/distance_text_view" />
+
+
+
+    <TextView
         android:id="@+id/sort_by_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -62,8 +66,9 @@
         android:id="@+id/sort_by_spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:elevation="4dp"
         app:layout_constraintTop_toBottomOf="@id/sort_by_text_view"
-        app:layout_constraintStart_toEndOf="@id/vertical_mid_guideline_left"
+        app:layout_constraintStart_toStartOf="@id/sort_by_text_view"
         app:layout_constraintBottom_toTopOf="@id/horizontal_mid_guideline_two"
         />
 
@@ -130,6 +135,7 @@
             android:id="@+id/open_now_true"
             android:layout_width="@dimen/open_now_radio_button_width"
             android:layout_height="match_parent"
+            android:elevation="8dp"
             android:background="@drawable/open_now_selected_background"
             android:button="@null"
             android:checked="true"
@@ -141,6 +147,7 @@
             android:id="@+id/open_now_false"
             android:layout_width="@dimen/open_now_radio_button_width"
             android:layout_height="match_parent"
+            android:elevation="8dp"
             android:background="@drawable/open_now_unselected_background"
             android:button="@null"
             android:onClick="onOpenNowButtonClick"
@@ -157,8 +164,7 @@
         app:layout_constraintEnd_toStartOf="@id/vertical_mid_guideline_end"
         app:layout_constraintStart_toEndOf="@id/vertical_mid_guideline_left"
         app:layout_constraintTop_toBottomOf="@id/open_now_radio_group"
-        app:layout_constraintBottom_toTopOf="@id/spin_button"
-        app:layout_constraintHorizontal_bias="0.0">
+        app:layout_constraintBottom_toTopOf="@id/spin_button">
 
         <TextView
             android:id="@+id/price_text_view"
@@ -177,6 +183,7 @@
                 android:id="@+id/one_dollar_sign_button"
                 android:layout_width="@dimen/price_radio_button_width"
                 android:layout_height="match_parent"
+                android:elevation="8dp"
                 android:textAlignment="center"
                 android:text="@string/one_dollar_sign"
                 android:background="@drawable/price_button_effect"
@@ -186,6 +193,7 @@
                 android:id="@+id/two_dollar_sign_button"
                 android:layout_width="@dimen/price_radio_button_width"
                 android:layout_height="match_parent"
+                android:elevation="8dp"
                 android:textAlignment="center"
                 android:text="@string/two_dollar_sign"
                 android:background="@drawable/price_button_effect"
@@ -195,6 +203,7 @@
                 android:id="@+id/three_dollar_sign_button"
                 android:layout_width="@dimen/price_radio_button_width"
                 android:layout_height="match_parent"
+                android:elevation="8dp"
                 android:textAlignment="center"
                 android:text="@string/three_dollar_sign"
                 android:background="@drawable/price_button_effect"
@@ -204,6 +213,7 @@
                 android:id="@+id/four_dollar_sign_button"
                 android:layout_width="@dimen/price_radio_button_width"
                 android:layout_height="match_parent"
+                android:elevation="8dp"
                 android:textAlignment="center"
                 android:text="@string/four_dollar_sign"
                 android:background="@drawable/price_button_effect"
@@ -222,6 +232,8 @@
         android:background="@drawable/riple_spin_button"
         android:onClick="onSpinButtonClick"
         android:clickable="true"
+        android:stateListAnimator="@null"
+        android:elevation="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

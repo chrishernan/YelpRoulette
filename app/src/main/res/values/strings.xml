@@ -3,8 +3,8 @@
     <string name="spin_button_text">SPIN!</string>
 
     <!-- Spinner text view names -->
-    <string name="distance_text">Distance (Mi)</string>
-    <string name="sort_by_text">Sort By</string>
+    <string name="distance_text">Distance (Miles)</string>
+    <string name="sort_by_text">How to sort results</string>
     <string name="open_now_text">open now</string>
 
     <!-- Price dollar sign values -->
