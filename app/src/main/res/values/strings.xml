@@ -15,9 +15,9 @@
     <string name="spin_button_description">Spin</string>
     <string name="price_text">price</string>
 
-    <!-- Category values -->
-    <string name="category_text">Category</string>
-    <string name="category_hint">Leave blank and search anything </string>
+    <!-- Term values -->
+    <string name="term_text">Term</string>
+    <string name="term_hint">Leave blank and search anything </string>
     <!-- Open now button values -->
     <string name="open_now_yes">Yes</string>
     <string name="open_now_no">No</string>

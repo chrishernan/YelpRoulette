@@ -21,7 +21,7 @@ interface YelpApiService {
         @Query("price") price : String,
         @Query("open_now") openNow : String,
         @Query("sort_by") sortBy : String,
-        @Query("categories") categories : String
+        @Query("term") term : String
     ) : Businesses
 
     @GET("businesses/search")
@@ -41,7 +41,7 @@ interface YelpApiService {
         @Query("price") price : String,
         @Query("open_now") openNow : String,
         @Query("sort_by") sortBy : String,
-        @Query("categories") categories : String
+        @Query("term") term : String
     ) : Businesses
 
     @GET("businesses/search")

@@ -6,7 +6,6 @@ import com.example.yelproulette.DependencyInjection.AppModule
 import com.example.yelproulette.retrofitDataModels.Businesses
 import com.example.yelproulette.retrofitDataModels.BusinessesItem
 import com.example.yelproulette.room.ApiMapDatabase
-import com.example.yelproulette.room.CategoryMapDao
 import com.example.yelproulette.room.SortByMapDao
 import com.example.yelproulette.utils.Constants
 import com.example.yelproulette.utils.convertMilesToMeters
@@ -19,7 +18,6 @@ import kotlin.random.Random
 class Repository @Inject constructor(
     private val yelpApiHelper: YelpApiHelper,
     private val apiMapDatabase : ApiMapDatabase,
-    private val categoryMapDao: CategoryMapDao,
     private val sortByMapDao: SortByMapDao,
     @AppModule.CategoryMapStringArray  private val categoryMapStringArray: Array<String>,
     @AppModule.SortByMapStringArray private val sortByMapStringArray: Array<String>) {
@@ -32,18 +30,14 @@ class Repository @Inject constructor(
         Timber.e("Exception Thrown => $exception")
     }
 
-    /**
-     * Fetches businesses when category is specifed (not equal to "Any")
-     *
-     */
-    suspend fun fetchCategoryBusiness(address : String,
+    suspend fun fetchTermBusiness(address : String,
                                       radius : String,
                                       price : String,
                                       openNow : String,
                                       sortBy : String,
-                                      categories : String) : BusinessesItem? {
+                                      term : String) : BusinessesItem? {
         //If categories is set to Any call different function to handle that
-        if(categories.isEmpty()) {
+        if(term.isEmpty()) {
             return fetchNoCategoryBusiness(
                 address,
                 radius,
@@ -59,7 +53,7 @@ class Repository @Inject constructor(
                     price.length.toString(),
                     openNowConversion(openNow),
                     sortByMapDao.getApiSortByKey(sortBy),
-                    categories)
+                    term)
 
             //Computes random business from return businesses
             val randomBusinessJob  = cpuScope.async { randomBusiness(businesses)}
@@ -91,16 +85,16 @@ class Repository @Inject constructor(
     }
 
     /**
-     * Fetches category business with Latitude and Longitude
+     * Fetches term business with Latitude and Longitude
      */
-    suspend fun fetchCategoryLatitudeLongitudeBusiness(longitude : String,
+    suspend fun fetchTermLatitudeLongitudeBusiness(longitude : String,
                                                        latitude : String,
                                                        radius : String,
                                                        price : String,
                                                        openNow : String,
                                                        sortBy : String,
-                                                       categories : String): BusinessesItem? {
-        if(categories.isEmpty()) {
+                                                       term : String): BusinessesItem? {
+        if(term.isEmpty()) {
             return fetchNoCategoryLatitudeLongitudeBusiness(
                 longitude,
                 latitude,
@@ -116,7 +110,7 @@ class Repository @Inject constructor(
                     price.toString(),
                     openNowConversion(openNow),
                     sortByMapDao.getApiSortByKey(sortBy),
-                    categories)
+                    term)
 
             //Computes random business from return businesses
             val randomBusinessJob  = cpuScope.async { randomBusiness(businesses)}
@@ -169,12 +163,6 @@ class Repository @Inject constructor(
      * Adds all spinner/dropdown mappings to the Room database to use in our API calls
      */
     fun addAllMappingsToDB() {
-        categoryMapDao.delete("French")
-        for(i in categoryMapStringArray.toList()) {
-            val splitString = i.split(",").toTypedArray()
-            categoryMapDao.insert(splitString[0],splitString[1])
-        }
-
         for(j in sortByMapStringArray.toList()) {
             val splitString = j.split(",").toTypedArray()
             sortByMapDao.insert(splitString[0],splitString[1])

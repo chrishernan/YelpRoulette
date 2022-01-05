@@ -40,7 +40,7 @@ class YelpViewModel @Inject constructor(
                           price : String,
                           openNow : String,
                           sortBy : String,
-                          categories : String) {
+                          term : String) {
         viewModelCoroutineScope.launch(coroutineExceptionHandler) {
             //Letting Our view know we are loading the random business
             randomYelpRestaurant.postValue(Result(
@@ -49,13 +49,13 @@ class YelpViewModel @Inject constructor(
                     "Loading Random Business"
             ))
             val businessJob = viewModelCoroutineScope.async {
-                    repository.fetchCategoryBusiness(
+                    repository.fetchTermBusiness(
                         address,
                         radius,
                         price,
                         openNow,
                         sortBy,
-                        categories)
+                        term)
             }
             val business = businessJob.await()
             //Posting Success or Zero Business value depending on the coroutine result
@@ -73,7 +73,7 @@ class YelpViewModel @Inject constructor(
                                      price : String,
                                      openNow : String,
                                      sortBy : String,
-                                     categories : String) {
+                                     term : String) {
         viewModelCoroutineScope.launch(coroutineExceptionHandler) {
             randomYelpRestaurant.postValue(Result(
                     Result.Status.LOADING,
@@ -81,14 +81,14 @@ class YelpViewModel @Inject constructor(
                     "Loading Random Business"
             ))
             val latitudeLongitudeJob = viewModelCoroutineScope.async {
-                repository.fetchCategoryLatitudeLongitudeBusiness(
+                repository.fetchTermLatitudeLongitudeBusiness(
                     longitude,
                     latitude,
                     radius,
                     price,
                     openNow,
                     sortBy,
-                    categories)
+                    term)
             }
             val business = latitudeLongitudeJob.await()
             populateResultLiveData(business)

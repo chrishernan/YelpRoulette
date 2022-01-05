@@ -9,25 +9,25 @@
 
 
     <TextView
-        android:id="@+id/category_text_view"
+        android:id="@+id/term_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/category_text"
-        app:layout_constraintBottom_toTopOf="@id/category_text_input_edit_text"
+        android:text="@string/term_text"
+        app:layout_constraintBottom_toTopOf="@id/term_text_input_edit_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/category_text_input_edit_text"
-        android:layout_width="@dimen/category_text_input_layout_width"
+        android:id="@+id/term_text_input_edit_text"
+        android:layout_width="@dimen/term_text_input_layout_width"
         android:layout_height="wrap_content"
-        android:hint="@string/category_hint"
+        android:hint="@string/term_hint"
         android:gravity="center"
         app:layout_constraintBottom_toBottomOf="@id/horizontal_mid_guideline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/category_text_view" />
+        app:layout_constraintTop_toBottomOf="@id/term_text_view" />
 
     <TextView
         android:id="@+id/distance_text_view"

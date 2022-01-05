@@ -223,7 +223,7 @@ class MainActivity : AppCompatActivity() {
                         priceSelectedButtons.toString(),
                         openNowCheckedRadioButton.text.toString(),
                         layout.findViewById<NiceSpinner>(R.id.sort_by_spinner).selectedItem.toString(),
-                        layout.findViewById<TextInputEditText>(R.id.category_text_input_edit_text)
+                        layout.findViewById<TextInputEditText>(R.id.term_text_input_edit_text)
                             .text.toString().lowercase()
                     )
                 }
