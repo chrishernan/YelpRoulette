@@ -25,7 +25,7 @@ interface YelpApiService {
     ) : Businesses
 
     @GET("businesses/search")
-    suspend fun getBusinessesNoCategory(
+    suspend fun getBusinessesNoTerm(
         @Query("location") address : String,
         @Query("radius") radius : String,
         @Query("price") price : String,
@@ -45,7 +45,7 @@ interface YelpApiService {
     ) : Businesses
 
     @GET("businesses/search")
-    suspend fun getBusinessesWithLongitudeLatitudeNoCategory(
+    suspend fun getBusinessesWithLongitudeLatitudeNoTerm(
         @Query("longitude") longitude : String,
         @Query("latitude") latitude : String,
         @Query("radius") radius : String,

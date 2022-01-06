@@ -16,13 +16,13 @@ class YelpApiHelper @Inject constructor(private val yelpApiService : YelpApiServ
         address, radius, price, openNow, sortBy, term
     )
 
-    suspend fun getBusinessesNoCategory(
+    suspend fun getBusinessesNoTerm(
         address : String,
         radius : String,
         price : String,
         openNow : String,
         sortBy : String
-    ) = yelpApiService.getBusinessesNoCategory(
+    ) = yelpApiService.getBusinessesNoTerm(
         address, radius, price, openNow, sortBy
     )
 
@@ -39,14 +39,14 @@ class YelpApiHelper @Inject constructor(private val yelpApiService : YelpApiServ
         longitude,latitude, radius, price, openNow, sortBy, term
     )
 
-    suspend fun getBusinessesWithLongitudeLatitudeNoCategory(
+    suspend fun getBusinessesWithLongitudeLatitudeNoTerm(
         longitude : String,
         latitude : String,
         radius : String,
         price : String,
         openNow : String,
         sortBy : String
-    ) = yelpApiService.getBusinessesWithLongitudeLatitudeNoCategory(
+    ) = yelpApiService.getBusinessesWithLongitudeLatitudeNoTerm(
         longitude,latitude, radius, price, openNow, sortBy
     )
 

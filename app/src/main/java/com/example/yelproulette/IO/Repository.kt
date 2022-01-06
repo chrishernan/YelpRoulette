@@ -19,7 +19,6 @@ class Repository @Inject constructor(
     private val yelpApiHelper: YelpApiHelper,
     private val apiMapDatabase : ApiMapDatabase,
     private val sortByMapDao: SortByMapDao,
-    @AppModule.CategoryMapStringArray  private val categoryMapStringArray: Array<String>,
     @AppModule.SortByMapStringArray private val sortByMapStringArray: Array<String>) {
 
     //Initializing coroutine variables
@@ -38,7 +37,7 @@ class Repository @Inject constructor(
                                       term : String) : BusinessesItem? {
         //If categories is set to Any call different function to handle that
         if(term.isEmpty()) {
-            return fetchNoCategoryBusiness(
+            return fetchNoTermBusiness(
                 address,
                 radius,
                 price,
@@ -66,12 +65,12 @@ class Repository @Inject constructor(
     /**
      * Fetches businesses when category is set to "Any"
      */
-    suspend fun fetchNoCategoryBusiness(address : String,
+    suspend fun fetchNoTermBusiness(address : String,
                                         radius : String,
                                         price : String,
                                         openNow : String,
                                         sortBy : String) : BusinessesItem? {
-        val businesses = yelpApiHelper.getBusinessesNoCategory(
+        val businesses = yelpApiHelper.getBusinessesNoTerm(
             address,
             convertMilesToMeters(radius.toInt()).toString(),
             price.length.toString(),
@@ -95,7 +94,7 @@ class Repository @Inject constructor(
                                                        sortBy : String,
                                                        term : String): BusinessesItem? {
         if(term.isEmpty()) {
-            return fetchNoCategoryLatitudeLongitudeBusiness(
+            return fetchNoTermLatitudeLongitudeBusiness(
                 longitude,
                 latitude,
                 radius,
@@ -123,13 +122,13 @@ class Repository @Inject constructor(
     /**
      * Fetches any business with Latitude and Longitude when category is set to "Any"
      */
-    suspend fun fetchNoCategoryLatitudeLongitudeBusiness(longitude : String,
+    suspend fun fetchNoTermLatitudeLongitudeBusiness(longitude : String,
                                                          latitude : String,
                                                          radius : String,
                                                          price : String,
                                                          openNow : String,
                                                          sortBy : String) : BusinessesItem? {
-        val businesses = yelpApiHelper.getBusinessesWithLongitudeLatitudeNoCategory(
+        val businesses = yelpApiHelper.getBusinessesWithLongitudeLatitudeNoTerm(
             longitude,
             latitude,
             convertMilesToMeters(radius.toInt()).toString(),
