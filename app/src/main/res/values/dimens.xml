@@ -34,4 +34,24 @@
     <integer name="total_number_of_stars">5</integer>
     <integer name="text_border">10</integer>
 
+    <!--Tablet Dimens-->
+    <dimen name="tablet_text_size">32sp</dimen>
+    <dimen name="tablet_large_text_size">48sp</dimen>
+    <dimen name="tablet_xlarge_text_size">64sp</dimen>
+    <dimen name="tablet_spin_roulette_button_radius">400dp</dimen>
+
+
+    <dimen name="tablet_price_radio_group_height">60dp</dimen>
+    <dimen name="tablet_price_radio_group_width">500dp</dimen>
+    <dimen name="tablet_price_radio_button_width">125dp</dimen>
+    <dimen name="tablet_price_bottom_padding">20dp</dimen>
+
+    <dimen name="tablet_open_now_radio_group_height">60dp</dimen>
+    <dimen name="tablet_open_now_radio_group_width">250dp</dimen>
+    <dimen name="tablet_open_now_radio_button_width">125dp</dimen>
+
+    <dimen name="tablet_term_text_input_layout_width">600dp</dimen>
+
+
+
 </resources>

@@ -3,8 +3,27 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/car.xml" value="0.2578125" />
+        <entry key="app/src/main/res/drawable/circle_button.xml" value="0.3619791666666667" />
+        <entry key="app/src/main/res/drawable/ic_baseline_map_24.xml" value="0.2578125" />
+        <entry key="app/src/main/res/drawable/ic_baseline_map_32.xml" value="0.2578125" />
+        <entry key="app/src/main/res/drawable/ic_baseline_phone_24.xml" value="0.2578125" />
+        <entry key="app/src/main/res/drawable/ic_baseline_phone_48.xml" value="0.2578125" />
+        <entry key="app/src/main/res/drawable/open_now_selected_background.xml" value="0.3619791666666667" />
+        <entry key="app/src/main/res/drawable/open_now_unselected_background.xml" value="0.3619791666666667" />
+        <entry key="app/src/main/res/drawable/price_button_effect.xml" value="0.3619791666666667" />
+        <entry key="app/src/main/res/drawable/price_focused_background.xml" value="0.3619791666666667" />
+        <entry key="app/src/main/res/drawable/price_pressed_background.xml" value="0.3619791666666667" />
+        <entry key="app/src/main/res/drawable/riple_spin_button.xml" value="0.3619791666666667" />
+        <entry key="app/src/main/res/layout-land/fragment_single_business.xml" value="0.20502645502645503" />
+        <entry key="app/src/main/res/layout-land/fragment_start.xml" value="0.33" />
+        <entry key="app/src/main/res/layout-land/fragment_start_land.xml" value="0.2421875" />
+        <entry key="app/src/main/res/layout-sw600dp/fragment_single_business.xml" value="0.22" />
+        <entry key="app/src/main/res/layout-sw600dp/fragment_start.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.3463541666666667" />
+        <entry key="app/src/main/res/layout/fragment_single_business.xml" value="0.2421875" />
         <entry key="app/src/main/res/layout/fragment_start.xml" value="0.3463541666666667" />
+        <entry key="app/src/main/res/layout/start_page_fragment.xml" value="0.2421875" />
       </map>
     </option>
   </component>

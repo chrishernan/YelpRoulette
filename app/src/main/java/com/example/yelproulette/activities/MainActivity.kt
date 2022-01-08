@@ -10,6 +10,8 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.AttributeSet
+import android.util.Log
+import android.util.Log.e
 import android.view.View
 import android.widget.*
 import androidx.activity.viewModels
@@ -195,6 +197,7 @@ class MainActivity : AppCompatActivity() {
         val locationNullFragment  = LocationNullFragment()
         val layout = view.parent as ConstraintLayout
         val priceSelectedButtons = generateYelpPriceArgument()
+        Timber.e(priceSelectedButtons)
             //findViewById(layout.findViewById<RadioGroup>(R.id.price_radio_group).checkedRadioButtonId)
         val openNowCheckedRadioButton : RadioButton = findViewById(layout
             .findViewById<RadioGroup>(R.id.open_now_radio_group).checkedRadioButtonId)
@@ -262,7 +265,11 @@ class MainActivity : AppCompatActivity() {
                 priceList.add((button as android.widget.Button).text.length.toString())
             }
         }
+        //returns all prices if no selections have been made for price points.
+        if(priceList.isEmpty()) return "1,2,3,4"
+
         priceString = priceList.joinToString(separator = ",")
+        Timber.e(priceString)
         return priceString
     }
 

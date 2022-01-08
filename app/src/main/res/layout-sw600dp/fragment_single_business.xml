@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.SingleBusinessFragment">
+
+    <ImageView
+        android:id="@+id/business_image_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/business_top_horizontal_guide_line"
+        android:contentDescription="@string/business_food_image_view" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/business_top_horizontal_guide_line"
+        android:contentDescription="@string/business_food_image_view"
+        android:background="@drawable/scrim_gradient"/>
+
+    <TextView
+        android:id="@+id/business_title_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/business_title_string"
+        android:textSize="@dimen/tablet_xlarge_text_size"
+        android:textColor="@color/white"
+        android:shadowColor="@color/black"
+        android:shadowRadius="@integer/text_border"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/business_top_horizontal_guide_line"
+        app:layout_constraintVertical_bias=".8"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/business_top_horizontal_guide_line"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent=".4"/>
+
+    <TextView
+        android:id="@+id/single_business_price_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/one_dollar_sign"
+        android:textSize="@dimen/tablet_text_size"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/business_rating_bar"
+        app:layout_constraintBottom_toTopOf="@+id/business_directions_button"
+        app:layout_constraintTop_toBottomOf="@+id/business_top_horizontal_guide_line" />
+
+    <RatingBar
+        android:id="@+id/business_rating_bar"
+        style="@style/Widget.AppCompat.RatingBar.Indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:isIndicator="true"
+        android:rating="3"
+        android:progressTint="@color/star_rating_color"
+        android:secondaryProgressTint="@color/star_rating_secondary_color"
+        android:numStars="@integer/total_number_of_stars"
+        app:layout_constraintBottom_toTopOf="@+id/business_directions_button"
+        app:layout_constraintEnd_toStartOf="@id/number_of_ratings_text_view"
+        app:layout_constraintStart_toEndOf="@id/single_business_price_text_view"
+        app:layout_constraintTop_toBottomOf="@+id/business_top_horizontal_guide_line" />
+
+
+    <TextView
+        android:id="@+id/number_of_ratings_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/num_of_ratings_place_holder"
+        android:textSize="@dimen/tablet_text_size"
+        app:layout_constraintTop_toTopOf="@id/business_top_horizontal_guide_line"
+        app:layout_constraintBottom_toTopOf="@+id/business_directions_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/business_rating_bar" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/business_call_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="8dp"
+        app:borderWidth="0dp"
+        app:fabCustomSize="96dp"
+        app:maxImageSize="48dp"
+        android:src="@drawable/ic_baseline_phone_24"
+        app:layout_constraintTop_toBottomOf="@id/business_rating_bar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/business_directions_button"
+        app:layout_constraintBottom_toTopOf="@id/business_call_text_view"
+        android:contentDescription="@string/call_button" />
+
+    <TextView
+        android:id="@+id/business_call_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/call_button"
+        android:textSize="@dimen/tablet_text_size"
+        app:layout_constraintTop_toBottomOf="@id/business_call_button"
+        app:layout_constraintStart_toStartOf="@id/business_call_button"
+        app:layout_constraintEnd_toEndOf="@id/business_call_button"
+        app:layout_constraintBottom_toTopOf="@id/business_bottom_horizontal_guide_line"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/business_directions_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="8dp"
+        app:borderWidth="0dp"
+        app:fabCustomSize="96dp"
+        app:maxImageSize="48dp"
+        android:src="@drawable/ic_baseline_map_24"
+        app:layout_constraintTop_toBottomOf="@id/business_rating_bar"
+        app:layout_constraintStart_toEndOf="@id/business_call_button"
+        app:layout_constraintBottom_toTopOf="@id/business_directions_text_view"
+        app:layout_constraintEnd_toStartOf="@id/business_yelp_button"
+        android:contentDescription="@string/directions_button" />
+
+    <TextView
+        android:id="@+id/business_directions_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="8dp"
+        android:text="@string/directions_button"
+        android:textSize="@dimen/tablet_text_size"
+        app:layout_constraintTop_toBottomOf="@id/business_directions_button"
+        app:layout_constraintStart_toStartOf="@id/business_directions_button"
+        app:layout_constraintEnd_toEndOf="@id/business_directions_button"
+        app:layout_constraintBottom_toTopOf="@id/business_bottom_horizontal_guide_line"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/business_yelp_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="8dp"
+        app:borderWidth="0dp"
+        app:fabCustomSize="96dp"
+        app:maxImageSize="48dp"
+        android:src="@drawable/ic_baseline_double_arrow_24"
+        app:layout_constraintStart_toEndOf="@id/business_directions_button"
+        app:layout_constraintBottom_toTopOf="@id/business_yelp_text_view"
+        app:layout_constraintTop_toBottomOf="@id/business_rating_bar"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:contentDescription="@string/yelp_button" />
+
+    <TextView
+        android:id="@+id/business_yelp_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/yelp_button"
+        android:textSize="@dimen/tablet_text_size"
+        app:layout_constraintTop_toBottomOf="@id/business_yelp_button"
+        app:layout_constraintStart_toStartOf="@id/business_yelp_button"
+        app:layout_constraintEnd_toEndOf="@id/business_yelp_button"
+        app:layout_constraintBottom_toTopOf="@id/business_bottom_horizontal_guide_line"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/business_bottom_horizontal_guide_line"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent=".6"/>
+
+    <com.google.android.gms.maps.MapView
+        android:name="com.google.android.gms.maps.MapView"
+        android:id="@+id/map"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/business_bottom_horizontal_guide_line"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

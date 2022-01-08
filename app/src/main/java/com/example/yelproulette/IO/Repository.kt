@@ -132,7 +132,7 @@ class Repository @Inject constructor(
             longitude,
             latitude,
             convertMilesToMeters(radius.toInt()).toString(),
-            price.length.toString(),
+            price.toString(),
             openNowConversion(openNow),
             sortByMapDao.getApiSortByKey(sortBy)
         )

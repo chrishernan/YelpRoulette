@@ -13,6 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/term_text"
+        android:textSize="@dimen/tablet_text_size"
         app:layout_constraintBottom_toTopOf="@id/term_text_input_edit_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,9 +21,10 @@
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/term_text_input_edit_text"
-        android:layout_width="@dimen/term_text_input_layout_width"
+        android:layout_width="@dimen/tablet_term_text_input_layout_width"
         android:layout_height="wrap_content"
         android:hint="@string/term_hint"
+        android:textSize="@dimen/tablet_text_size"
         android:gravity="center"
         app:layout_constraintBottom_toBottomOf="@id/horizontal_mid_guideline"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,17 +36,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/distance_text"
+        android:textSize="@dimen/tablet_text_size"
         app:layout_constraintBottom_toTopOf="@+id/distance_spinner"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/vertical_mid_guideline_right"
-        app:layout_constraintTop_toTopOf="@id/horizontal_mid_guideline"
-        app:layout_constraintHorizontal_bias="0.25"/>
+        app:layout_constraintTop_toTopOf="@id/horizontal_mid_guideline" />
 
     <org.angmarch.views.NiceSpinner
         android:id="@+id/distance_spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:elevation="4dp"
+        android:textSize="@dimen/tablet_text_size"
         app:layout_constraintBottom_toBottomOf="@id/horizontal_mid_guideline_two"
         app:layout_constraintStart_toStartOf="@id/distance_text_view"
         app:layout_constraintTop_toBottomOf="@id/distance_text_view" />
@@ -56,17 +59,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/sort_by_text"
+        android:textSize="@dimen/tablet_text_size"
         app:layout_constraintBottom_toTopOf="@id/sort_by_spinner"
         app:layout_constraintEnd_toStartOf="@id/distance_text_view"
         app:layout_constraintStart_toEndOf="@id/vertical_mid_guideline_left"
         app:layout_constraintTop_toTopOf="@id/horizontal_mid_guideline"
-        app:layout_constraintHorizontal_bias="0" />
+        app:layout_constraintHorizontal_bias=".25" />
 
     <org.angmarch.views.NiceSpinner
         android:id="@+id/sort_by_spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:elevation="4dp"
+        android:textSize="@dimen/tablet_text_size"
         app:layout_constraintTop_toBottomOf="@id/sort_by_text_view"
         app:layout_constraintStart_toStartOf="@id/sort_by_text_view"
         app:layout_constraintBottom_toTopOf="@id/horizontal_mid_guideline_two"
@@ -114,6 +119,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/open_now_text"
+        android:textSize="@dimen/tablet_text_size"
         app:layout_constraintEnd_toStartOf="@id/vertical_mid_guideline_end"
         app:layout_constraintStart_toEndOf="@id/vertical_mid_guideline_left"
         app:layout_constraintTop_toBottomOf="@id/horizontal_mid_guideline_two"
@@ -123,8 +129,8 @@
 
     <RadioGroup
         android:id="@+id/open_now_radio_group"
-        android:layout_width="@dimen/open_now_radio_group_width"
-        android:layout_height="@dimen/open_now_radio_group_height"
+        android:layout_width="@dimen/tablet_open_now_radio_group_width"
+        android:layout_height="@dimen/tablet_open_now_radio_group_height"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@id/price_linear_layout"
         app:layout_constraintEnd_toStartOf="@id/vertical_mid_guideline_end"
@@ -133,7 +139,7 @@
 
         <RadioButton
             android:id="@+id/open_now_true"
-            android:layout_width="@dimen/open_now_radio_button_width"
+            android:layout_width="@dimen/tablet_open_now_radio_button_width"
             android:layout_height="match_parent"
             android:elevation="8dp"
             android:background="@drawable/open_now_selected_background"
@@ -141,17 +147,19 @@
             android:checked="true"
             android:onClick="onOpenNowButtonClick"
             android:text="@string/open_now_yes"
+            android:textSize="@dimen/tablet_text_size"
             android:textAlignment="center" />
 
         <RadioButton
             android:id="@+id/open_now_false"
-            android:layout_width="@dimen/open_now_radio_button_width"
+            android:layout_width="@dimen/tablet_open_now_radio_button_width"
             android:layout_height="match_parent"
             android:elevation="8dp"
             android:background="@drawable/open_now_unselected_background"
             android:button="@null"
             android:onClick="onOpenNowButtonClick"
             android:text="@string/open_now_no"
+            android:textSize="@dimen/tablet_text_size"
             android:textAlignment="center" />
     </RadioGroup>
 
@@ -171,51 +179,56 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/price_text"
+            android:textSize="@dimen/tablet_text_size"
             android:paddingBottom="@dimen/price_bottom_padding"/>
 
         <LinearLayout
             android:id="@+id/price_button_linear_layout"
-            android:layout_width="@dimen/price_radio_group_width"
-            android:layout_height="@dimen/price_radio_group_height"
+            android:layout_width="@dimen/tablet_price_radio_group_width"
+            android:layout_height="@dimen/tablet_price_radio_group_height"
             android:orientation="horizontal">
 
             <android.widget.Button
                 android:id="@+id/one_dollar_sign_button"
-                android:layout_width="@dimen/price_radio_button_width"
+                android:layout_width="@dimen/tablet_price_radio_button_width"
                 android:layout_height="match_parent"
                 android:elevation="8dp"
                 android:textAlignment="center"
                 android:text="@string/one_dollar_sign"
+                android:textSize="@dimen/tablet_text_size"
                 android:background="@drawable/price_button_effect"
                 android:onClick="onPriceButtonClick" />
 
             <android.widget.Button
                 android:id="@+id/two_dollar_sign_button"
-                android:layout_width="@dimen/price_radio_button_width"
+                android:layout_width="@dimen/tablet_price_radio_button_width"
                 android:layout_height="match_parent"
                 android:elevation="8dp"
                 android:textAlignment="center"
                 android:text="@string/two_dollar_sign"
+                android:textSize="@dimen/tablet_text_size"
                 android:background="@drawable/price_button_effect"
                 android:onClick="onPriceButtonClick" />
 
             <android.widget.Button
                 android:id="@+id/three_dollar_sign_button"
-                android:layout_width="@dimen/price_radio_button_width"
+                android:layout_width="@dimen/tablet_price_radio_button_width"
                 android:layout_height="match_parent"
                 android:elevation="8dp"
                 android:textAlignment="center"
                 android:text="@string/three_dollar_sign"
+                android:textSize="@dimen/tablet_text_size"
                 android:background="@drawable/price_button_effect"
                 android:onClick="onPriceButtonClick" />
 
             <android.widget.Button
                 android:id="@+id/four_dollar_sign_button"
-                android:layout_width="@dimen/price_radio_button_width"
+                android:layout_width="@dimen/tablet_price_radio_button_width"
                 android:layout_height="match_parent"
                 android:elevation="8dp"
                 android:textAlignment="center"
                 android:text="@string/four_dollar_sign"
+                android:textSize="@dimen/tablet_text_size"
                 android:background="@drawable/price_button_effect"
                 android:onClick="onPriceButtonClick" />
         </LinearLayout>
@@ -225,10 +238,10 @@
 
     <android.widget.Button
         android:id="@+id/spin_button"
-        android:layout_width="@dimen/spin_roulette_button_radius"
-        android:layout_height="@dimen/spin_roulette_button_radius"
+        android:layout_width="@dimen/tablet_spin_roulette_button_radius"
+        android:layout_height="@dimen/tablet_spin_roulette_button_radius"
         android:text="@string/spin_button_text"
-        android:textSize="@dimen/large_text_size"
+        android:textSize="@dimen/tablet_large_text_size"
         android:background="@drawable/riple_spin_button"
         android:onClick="onSpinButtonClick"
         android:clickable="true"
