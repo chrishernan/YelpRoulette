@@ -10,10 +10,10 @@ import com.example.yelproulette.R
 
 /**
  * A simple [Fragment] subclass.
- * Use the [ErrorDialogFragment.newInstance] factory method to
+ * Use the [LocationPermissionDeniedFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class ErrorDialogFragment : DialogFragment() {
+class LocationPermissionDeniedFragment : DialogFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,20 +24,19 @@ class ErrorDialogFragment : DialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_error_dialog, container, false)
+        return inflater.inflate(R.layout.fragment_location_permission_denied, container, false)
     }
 
     companion object {
-        const val TAG = "ErrorDialogFragment"
+        const val TAG = "LocationPermissionDeniedFragment"
 
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
          *
-         * @return A new instance of fragment ErrorDialogFragment.
+         * @return A new instance of fragment LocationPermissionDeniedFragment.
          */
         @JvmStatic
-        fun newInstance() = ErrorDialogFragment()
-
+        fun newInstance(param1: String, param2: String) = LocationPermissionDeniedFragment()
     }
 }

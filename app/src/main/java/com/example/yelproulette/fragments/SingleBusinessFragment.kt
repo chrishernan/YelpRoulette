@@ -158,7 +158,6 @@ class SingleBusinessFragment : Fragment() {
             if(fullAddress?.address1?.isNotEmpty() == true) {
 
                 val address = fullAddress.displayAddress?.joinToString()
-                Timber.e(address)
                 (activity as MainActivity).getLocationPermission()
                 if (address != null) {
                     (activity as MainActivity).goToGoogleMapsApp(address)

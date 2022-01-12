@@ -197,11 +197,9 @@ class MainActivity : AppCompatActivity() {
         val locationNullFragment  = LocationNullFragment()
         val layout = view.parent as ConstraintLayout
         val priceSelectedButtons = generateYelpPriceArgument()
-        Timber.e(priceSelectedButtons)
             //findViewById(layout.findViewById<RadioGroup>(R.id.price_radio_group).checkedRadioButtonId)
         val openNowCheckedRadioButton : RadioButton = findViewById(layout
             .findViewById<RadioGroup>(R.id.open_now_radio_group).checkedRadioButtonId)
-        //Timber.e("price => ${priceCheckedRadioButton.text}")
 
 
         if(!locationPermissionGranted) {
@@ -269,7 +267,6 @@ class MainActivity : AppCompatActivity() {
         if(priceList.isEmpty()) return "1,2,3,4"
 
         priceString = priceList.joinToString(separator = ",")
-        Timber.e(priceString)
         return priceString
     }
 
@@ -340,7 +337,6 @@ class MainActivity : AppCompatActivity() {
             // include a "cancel" or "no thanks" button that allows the user to
             // continue using your app without granting the permission.
 
-            //TODO implement UI to show user why we need location permission, probably a dialog
         }
             else -> {
                 // You can directly ask for the permission.
@@ -367,6 +363,7 @@ class MainActivity : AppCompatActivity() {
                                             permissions: Array<String>,
                                             grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        val locationPermissionDeniedFragment  = LocationPermissionDeniedFragment()
         locationPermissionGranted = false
         when (requestCode) {
             PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION -> {
@@ -380,7 +377,8 @@ class MainActivity : AppCompatActivity() {
                     // At the same time, respect the user's decision. Don't link to
                     // system settings in an effort to convince the user to change
                     // their decision.
-
+                    //todo add dialog for this
+                    locationPermissionDeniedFragment.show(supportFragmentManager,LocationPermissionDeniedFragment.TAG)
                 }
                 return
             }

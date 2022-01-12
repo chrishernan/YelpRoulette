@@ -30,8 +30,10 @@
     <string name="zero_business_text">No restaurants found that fit your selection :(</string>
 
     <!-- Progress Bar Layout values -->
-    <string name="error_dialog_text">Unexpected Error happened while trying to retrieve a restaurant</string>
+    <string name="error_dialog_text">Unexpected Error happened while trying to retrieve a restaurant. Please try again. </string>
     <string name="location_null_dialog_text">Location was not retrieved succesfully. Please go back and try again.</string>
+    <string name="location_permission_denied_dialog_text">This app has not been granted permission. Please grant permissio in settings and try again</string>
+
 
     <!-- single business activity string values -->
     <string name="business_food_image_view">BUSINESS FOOD PHOTO</string>

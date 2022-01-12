@@ -49,7 +49,7 @@ class Repository @Inject constructor(
             val businesses = yelpApiHelper.getBusinesses(
                     address,
                     convertMilesToMeters(radius.toInt()).toString(),
-                    price.length.toString(),
+                    price.toString(),
                     openNowConversion(openNow),
                     sortByMapDao.getApiSortByKey(sortBy),
                     term)
@@ -73,7 +73,7 @@ class Repository @Inject constructor(
         val businesses = yelpApiHelper.getBusinessesNoTerm(
             address,
             convertMilesToMeters(radius.toInt()).toString(),
-            price.length.toString(),
+            price.toString(),
             openNowConversion(openNow),
             sortByMapDao.getApiSortByKey(sortBy))
 
@@ -166,7 +166,6 @@ class Repository @Inject constructor(
             val splitString = j.split(",").toTypedArray()
             sortByMapDao.insert(splitString[0],splitString[1])
         }
-        Timber.e("Room DB Populated")
     }
 
     private fun openNowConversion(openNow: String) : String {
