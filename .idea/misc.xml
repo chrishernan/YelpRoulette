@@ -9,6 +9,7 @@
         <entry key="app/src/main/res/drawable/ic_baseline_map_32.xml" value="0.2578125" />
         <entry key="app/src/main/res/drawable/ic_baseline_phone_24.xml" value="0.2578125" />
         <entry key="app/src/main/res/drawable/ic_baseline_phone_48.xml" value="0.2578125" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.3625" />
         <entry key="app/src/main/res/drawable/open_now_selected_background.xml" value="0.3619791666666667" />
         <entry key="app/src/main/res/drawable/open_now_unselected_background.xml" value="0.3619791666666667" />
         <entry key="app/src/main/res/drawable/price_button_effect.xml" value="0.3619791666666667" />
@@ -27,6 +28,8 @@
         <entry key="app/src/main/res/layout/fragment_single_business.xml" value="0.2421875" />
         <entry key="app/src/main/res/layout/fragment_start.xml" value="0.3463541666666667" />
         <entry key="app/src/main/res/layout/start_page_fragment.xml" value="0.2421875" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.3625" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.3625" />
       </map>
     </option>
   </component>
