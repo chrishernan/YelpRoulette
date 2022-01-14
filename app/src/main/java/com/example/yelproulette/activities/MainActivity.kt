@@ -53,6 +53,7 @@ class MainActivity : AppCompatActivity() {
     private var isLocationRequestDone = false
     private var map: GoogleMap? = null
     private val defaultLocation = LatLng(-33.8523341, 151.2106085)
+    val fetchingLocationDialog = FetchingLocationDialog()
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,6 +67,7 @@ class MainActivity : AppCompatActivity() {
 
         }
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
+        fetchingLocationDialog.setCancelable(false)
         setupObservers()
         getLocationPermission()
         getDeviceLocation()
@@ -211,23 +213,25 @@ class MainActivity : AppCompatActivity() {
             getDeviceLocation()
         }
         else {
-                if(lastKnownLocation == null) {
-                    getDeviceLocation()
-                    locationNullFragment.show(supportFragmentManager,LocationNullFragment.TAG)
-                }
-                else if(isLocationRequestDone) {
+            if(lastKnownLocation == null && isLocationRequestDone) {
+                locationNullFragment.show(supportFragmentManager,LocationNullFragment.TAG)
+            }
+            else if(isLocationRequestDone && lastKnownLocation!=null) {
 
-                    viewModel.getRandomBusinessWithLongLat(
-                        lastKnownLocation?.longitude.toString(),
-                        lastKnownLocation?.latitude.toString(),
-                        layout.findViewById<NiceSpinner>(R.id.distance_spinner).selectedItem.toString(),
-                        priceSelectedButtons.toString(),
-                        openNowCheckedRadioButton.text.toString(),
-                        layout.findViewById<NiceSpinner>(R.id.sort_by_spinner).selectedItem.toString(),
-                        layout.findViewById<TextInputEditText>(R.id.term_text_input_edit_text)
-                            .text.toString().lowercase()
-                    )
-                }
+                viewModel.getRandomBusinessWithLongLat(
+                    lastKnownLocation?.longitude.toString(),
+                    lastKnownLocation?.latitude.toString(),
+                    layout.findViewById<NiceSpinner>(R.id.distance_spinner).selectedItem.toString(),
+                    priceSelectedButtons.toString(),
+                    openNowCheckedRadioButton.text.toString(),
+                    layout.findViewById<NiceSpinner>(R.id.sort_by_spinner).selectedItem.toString(),
+                    layout.findViewById<TextInputEditText>(R.id.term_text_input_edit_text)
+                        .text.toString().lowercase()
+                )
+            }
+            else {
+                getDeviceLocation()
+            }
         }
     }
 
@@ -371,13 +375,13 @@ class MainActivity : AppCompatActivity() {
                 if (grantResults.isNotEmpty() &&
                         grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     locationPermissionGranted = true
+                    getDeviceLocation()
                 } else {
                     // Explain to the user that the feature is unavailable because
                     // the features requires a permission that the user has denied.
                     // At the same time, respect the user's decision. Don't link to
                     // system settings in an effort to convince the user to change
                     // their decision.
-                    //todo add dialog for this
                     locationPermissionDeniedFragment.show(supportFragmentManager,LocationPermissionDeniedFragment.TAG)
                 }
                 return
@@ -398,16 +402,20 @@ class MainActivity : AppCompatActivity() {
          */
         try {
             if (locationPermissionGranted) {
+                fetchOrDismissFetchingLocationDialog(isLocationRequestDone)
                     fusedLocationProviderClient.getCurrentLocation(PRIORITY_HIGH_ACCURACY,null)
                         .addOnSuccessListener { location: Location? ->
                             // Set the map's camera position to the current location of the device.
                             isLocationRequestDone = true
+                            fetchOrDismissFetchingLocationDialog(isLocationRequestDone)
                             lastKnownLocation = location
                         }
                         .addOnCanceledListener {
+                            Timber.e("Location is cancelled")
                             isLocationRequestDone = false
                         }
                         .addOnFailureListener {
+                            Timber.e("location failed")
                             isLocationRequestDone = false
                         }
             }
@@ -415,6 +423,18 @@ class MainActivity : AppCompatActivity() {
             Timber.e(e)
         }
     }
+
+    private fun fetchOrDismissFetchingLocationDialog(isLocationRequestDone : Boolean) {
+        if(isLocationRequestDone){
+            fetchingLocationDialog.setCancelable(true)
+            fetchingLocationDialog.dismiss()
+        }else {
+            fetchingLocationDialog.show(supportFragmentManager,FetchingLocationDialog.TAG)
+        }
+
+    }
+
+
 
     companion object {
         const val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1

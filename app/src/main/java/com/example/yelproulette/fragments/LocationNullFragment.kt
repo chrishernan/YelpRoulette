@@ -38,6 +38,6 @@ class LocationNullFragment : DialogFragment() {
          * @return A new instance of fragment LocationNullFragment.
          */
         @JvmStatic
-        fun newInstance(param1: String, param2: String) = LocationNullFragment()
+        fun newInstance() = LocationNullFragment()
     }
 }

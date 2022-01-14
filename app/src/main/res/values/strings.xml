@@ -33,6 +33,7 @@
     <string name="error_dialog_text">Unexpected Error happened while trying to retrieve a restaurant. Please try again. </string>
     <string name="location_null_dialog_text">Location was not retrieved succesfully. Please go back and try again.</string>
     <string name="location_permission_denied_dialog_text">This app has not been granted permission. Please grant permissio in settings and try again</string>
+    <string name="fetching_location_dialog_text">Please Wait. Location is being fetched from your phone. </string>
 
 
     <!-- single business activity string values -->

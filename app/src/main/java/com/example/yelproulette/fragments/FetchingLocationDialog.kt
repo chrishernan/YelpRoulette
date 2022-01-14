@@ -8,12 +8,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.example.yelproulette.R
 
+
 /**
  * A simple [Fragment] subclass.
- * Use the [LocationPermissionDeniedFragment.newInstance] factory method to
+ * Use the [FetchingLocationDialog.newInstance] factory method to
  * create an instance of this fragment.
  */
-class LocationPermissionDeniedFragment : DialogFragment() {
+class FetchingLocationDialog : DialogFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,19 +25,19 @@ class LocationPermissionDeniedFragment : DialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_location_permission_denied, container, false)
+        return inflater.inflate(R.layout.fragment_fetching_location_dialog, container, false)
     }
 
     companion object {
-        const val TAG = "LocationPermissionDeniedFragment"
+        const val TAG = "FetchingLocationDialogFragment"
 
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
-         *
-         * @return A new instance of fragment LocationPermissionDeniedFragment.
+         * @return A new instance of fragment FetchingLocationDialog.
          */
+
         @JvmStatic
-        fun newInstance() = LocationPermissionDeniedFragment()
+        fun newInstance() = FetchingLocationDialog()
     }
 }
