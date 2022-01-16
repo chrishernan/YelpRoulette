@@ -24,7 +24,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.iterator
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
-import androidx.lifecycle.Observer
+import androidx.lifecycle.*
 import com.example.yelproulette.IO.YelpApiHelper
 import com.example.yelproulette.R
 import com.example.yelproulette.ViewModel.YelpViewModel
@@ -40,9 +40,15 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.angmarch.views.NiceSpinner
 import timber.log.Timber
 import javax.inject.Inject
+import androidx.lifecycle.OnLifecycleEvent
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(),LifecycleObserver {
     @Inject
     lateinit var yelpApiHelper: YelpApiHelper
     private val viewModel : YelpViewModel by viewModels()
@@ -54,10 +60,15 @@ class MainActivity : AppCompatActivity() {
     private var map: GoogleMap? = null
     private val defaultLocation = LatLng(-33.8523341, 151.2106085)
     val fetchingLocationDialog = FetchingLocationDialog()
+    var wasInBackground = false
+    var hasBeenPaused = false
+    val mainScope = CoroutineScope(Dispatchers.Main)
+
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        ProcessLifecycleOwner.get().lifecycle.addObserver(this)
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         viewModel.populateDb()
         setContentView(R.layout.activity_main)
@@ -395,12 +406,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun getDeviceLocation() {
+    internal fun getDeviceLocation() {
         /*
          * Get the best and most recent location of the device, which may be null in rare
          * cases when a location is not available.
          */
         try {
+            isLocationRequestDone = false
             if (locationPermissionGranted) {
                 fetchOrDismissFetchingLocationDialog(isLocationRequestDone)
                     fusedLocationProviderClient.getCurrentLocation(PRIORITY_HIGH_ACCURACY,null)
@@ -426,8 +438,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun fetchOrDismissFetchingLocationDialog(isLocationRequestDone : Boolean) {
         if(isLocationRequestDone){
-            fetchingLocationDialog.setCancelable(true)
-            fetchingLocationDialog.dismiss()
+            mainScope.launch {
+                delay(500)
+                fetchingLocationDialog.setCancelable(true)
+                fetchingLocationDialog.dismiss()
+            }
         }else {
             fetchingLocationDialog.show(supportFragmentManager,FetchingLocationDialog.TAG)
         }
@@ -452,4 +467,18 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    @OnLifecycleEvent(Lifecycle.Event.ON_START)
+    fun onMoveToForeground() {
+        if(hasBeenPaused) wasInBackground = true
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
+    fun onMoveToBackground() {
+        if(hasBeenPaused) wasInBackground = false
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
+    fun onHasBeenPaused() {
+        hasBeenPaused= true
+    }
 }

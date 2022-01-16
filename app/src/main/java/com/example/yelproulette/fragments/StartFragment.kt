@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.yelproulette.R
 import com.example.yelproulette.ViewModel.YelpViewModel
+import com.example.yelproulette.activities.MainActivity
 import org.angmarch.views.NiceSpinner
 import timber.log.Timber
 import java.util.*
@@ -42,6 +43,14 @@ class StartFragment : Fragment() {
         return view
     }
 
+    override fun onResume() {
+        super.onResume()
+        if((activity as MainActivity).wasInBackground) {
+            (activity as MainActivity).getDeviceLocation()
+        }
+    }
+
+
     companion object {
         /**
          * Use this factory method to create a new instance of
@@ -53,8 +62,6 @@ class StartFragment : Fragment() {
         fun newInstance() =
             StartFragment()
     }
-
-
 
     fun displayProgressBarDialog() {
 
