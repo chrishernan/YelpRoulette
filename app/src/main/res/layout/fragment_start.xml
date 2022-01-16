@@ -24,6 +24,7 @@
         android:layout_height="wrap_content"
         android:hint="@string/term_hint"
         android:gravity="center"
+        android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
         app:layout_constraintBottom_toBottomOf="@id/horizontal_mid_guideline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

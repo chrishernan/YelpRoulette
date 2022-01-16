@@ -26,6 +26,8 @@
         android:hint="@string/term_hint"
         android:textSize="@dimen/tablet_text_size"
         android:gravity="center"
+        android:inputType="text"
+        android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
         app:layout_constraintBottom_toBottomOf="@id/horizontal_mid_guideline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

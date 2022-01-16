@@ -23,6 +23,8 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:hint="@string/term_hint"
+        android:inputType="text"
+        android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
         app:layout_constraintEnd_toStartOf="@+id/vertical_mid_guideline_right"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/term_text_view"
