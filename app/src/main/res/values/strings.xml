@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">YelpRoulette</string>
+    <string name="app_name">Yelp Roulette</string>
     <string name="spin_button_text">SPIN!</string>
 
     <!-- Spinner text view names -->
